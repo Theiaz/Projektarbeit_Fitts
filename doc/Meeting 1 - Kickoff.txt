@@ -1,0 +1,20 @@
+* Tickets mit Kürzel in Redmine [Fitts]
+* Abgabe/Abschlussprüfung: Präsentation der Doku im Redmine-Wiki, Upload von ZIP mit Code
+
+* Jedes mal zufällig
+* Genauigkeit der Messung im Rahmen von 10-4, 10-5
+* Versuch soll ungültig gemacht werden können + Versuch ist ungültig wenn Verzögerung > 3s
+* Dateiformat csv
+* Icons oder Text (Strg+P, Druckersymbol)
+* Deutsch oder Englisch (Oberfläche des Tests, Einstellungen auf Englisch)
+* Parameter: 
+	* 10 Finger System
+	* Links/Rechtshänder
+	* Linksrechtsschreiber/Rechtslinksschreiber
+	
+* 2 Varianten
+	* O(1)--> "Drucken" erscheint immer an fester Position
+	* O(n)--> "
+	
+Fragen:
+* Versuch ungültig machen --> markieren wenn nicht alle Runden abgeschlossen wurden (Programm vorzeitig geschlossen X)?

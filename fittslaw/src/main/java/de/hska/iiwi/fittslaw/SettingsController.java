@@ -9,8 +9,8 @@ import javafx.scene.control.Label;
 
 public class SettingsController implements Initializable { 
 
-    @FXML 
-    private Label label; 
+//    @FXML 
+//    private Label label; 
 
     private SettingsModel model; 
 
@@ -19,7 +19,7 @@ public class SettingsController implements Initializable {
         model = new SettingsModel(); 
     } 
 
-    public void manageButton() { 
-        label.setText(model.getHello()); 
-    } 
+//    public void manageButton() { 
+//        label.setText(model.getHello()); 
+//    } 
 } 

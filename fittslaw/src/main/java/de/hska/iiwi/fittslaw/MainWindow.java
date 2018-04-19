@@ -1,14 +1,20 @@
 package de.hska.iiwi.fittslaw;
 
+import org.apache.log4j.Logger;
+
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class MainWindow extends Application {
+	
+	private static final Logger LOG = Logger.getRootLogger();
+	private static final String SCREEN_SETTINGS = "/fxml/settings.fxml";
+	
+	private Stage window;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -16,20 +22,22 @@ public class MainWindow extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Hello World!");
-		Button btn = new Button();
-		btn.setText("Say 'Hello World'");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
+		window = primaryStage;
+		
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource(SCREEN_SETTINGS));
+		Parent root = null;
+		try {
+			root = loader.load();
+		} catch (Exception e) {
+			LOG.error("Unable to load FXML files: " + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		Scene scene = new Scene(root, 300, 250, Color.WHITE);
 
-			public void handle(ActionEvent event) {
-				System.out.println("Hello World!");
-			}
-		});
-
-		StackPane root = new StackPane();
-		root.getChildren().add(btn);
-		primaryStage.setScene(new Scene(root, 300, 250));
-		primaryStage.show();
+		window.setScene(scene);
+		window.show();
 	}
 
 }

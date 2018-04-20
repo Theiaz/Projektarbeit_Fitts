@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
@@ -7,59 +8,90 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
-<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hska.iiwi.fittslaw.SettingsController">
-   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-      <ColumnConstraints hgrow="SOMETIMES" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints vgrow="SOMETIMES" />
-   </rowConstraints>
-   <children>
+<SplitPane dividerPositions="0.5" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hska.iiwi.fittslaw.SettingsController">
+   <items>
       <GridPane alignment="center" hgap="10.0" vgap="10">
-      	<padding>
-      		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
-      	</padding>
          <children>
-         
-         	<Text text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-         
-         	<Label text="Age:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-         
-         	<TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-         
-         	<Label text="Sex:" GridPane.rowIndex="2" />
-            <RadioButton minWidth="-Infinity" mnemonicParsing="false" text="Female" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <RadioButton mnemonicParsing="false" text="Male" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" />
+            <Text text="Name:" GridPane.rowIndex="6" />
+            <Label text="Age:" GridPane.rowIndex="7" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="Sex:" GridPane.rowIndex="8" />
+            <RadioButton mnemonicParsing="false" text="Female" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <RadioButton mnemonicParsing="false" text="Male" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label minWidth="-Infinity" text="Writing direction:" GridPane.rowIndex="11" />
+            <RadioButton mnemonicParsing="false" text="Left to right" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <RadioButton mnemonicParsing="false" text="Right to left" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <Label minWidth="-Infinity" text="Writing hand:" GridPane.rowIndex="13" />
+            <RadioButton mnemonicParsing="false" text="Left " GridPane.columnIndex="1" GridPane.rowIndex="13" />
+            <RadioButton mnemonicParsing="false" text="Right" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+            <Label text="Comment:" GridPane.rowIndex="16" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="16" />
+            <Text text="Input device:" GridPane.rowIndex="1" />
+            <RadioButton mnemonicParsing="false" text="Mouse" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <RadioButton mnemonicParsing="false" text="Touch" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <RadioButton mnemonicParsing="false" text="Pen" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Text text="Device Type:" GridPane.rowIndex="4" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Text text="Experimentee" underline="true" GridPane.columnSpan="2" GridPane.rowIndex="5">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text text="Input Device" underline="true" GridPane.columnSpan="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <CheckBox mnemonicParsing="false" text="Used" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+            <Label minWidth="-Infinity" text="10 finger system:" GridPane.rowIndex="15" />
          </children>
          <columnConstraints>
-            <ColumnConstraints />
             <ColumnConstraints />
             <ColumnConstraints />
          </columnConstraints>
+         <padding>
+            <Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
+         </padding>
          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
             <RowConstraints />
             <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
             <RowConstraints />
             <RowConstraints />
          </rowConstraints>
-      
       </GridPane>
-      <GridPane alignment="center" hgap="10.0" vgap="10" GridPane.columnIndex="1">
+      <GridPane alignment="center" hgap="10.0" vgap="10">
          <children>
-            <Text text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <Label text="Age:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <Label text="Sex:" GridPane.rowIndex="2" />
-            <RadioButton minWidth="-Infinity" mnemonicParsing="false" text="Female" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <RadioButton mnemonicParsing="false" text="Male" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" />
+            <Text text="Type:" GridPane.rowIndex="1" />
+            <RadioButton mnemonicParsing="false" text="Type 1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <RadioButton mnemonicParsing="false" text="Type 2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <RadioButton mnemonicParsing="false" text="Type 3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Text text="Rounds:" GridPane.rowIndex="4" />
+            <TextField text="100" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Text text="Attempts" underline="true" GridPane.columnSpan="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <CheckBox mnemonicParsing="false" text="Used" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label text="Icons:" GridPane.rowIndex="6" />
+            <Button minWidth="150.0" mnemonicParsing="false" text="Start" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
          </children>
          <columnConstraints>
-            <ColumnConstraints />
             <ColumnConstraints />
             <ColumnConstraints />
          </columnConstraints>
@@ -71,32 +103,12 @@
             <RowConstraints />
             <RowConstraints />
             <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints valignment="BOTTOM" vgrow="ALWAYS" />
          </rowConstraints>
       </GridPane>
-      <GridPane alignment="center" hgap="10.0" vgap="10" GridPane.rowIndex="1">
-         <children>
-            <Text text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <Label text="Age:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <Label text="Sex:" GridPane.rowIndex="2" />
-            <RadioButton minWidth="-Infinity" mnemonicParsing="false" text="Female" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <RadioButton mnemonicParsing="false" text="Male" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" />
-         </children>
-         <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-         </columnConstraints>
-         <padding>
-            <Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
-         </padding>
-         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-         </rowConstraints>
-      </GridPane>
-   </children>
-</GridPane>
+   </items>
+</SplitPane>

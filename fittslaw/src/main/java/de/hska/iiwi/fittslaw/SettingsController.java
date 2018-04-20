@@ -1,25 +1,89 @@
 package de.hska.iiwi.fittslaw;
 
-import java.net.URL; 
-import java.util.ResourceBundle; 
+import javafx.fxml.FXML;
 
-import javafx.fxml.FXML; 
-import javafx.fxml.Initializable; 
-import javafx.scene.control.Label; 
+import javafx.scene.text.Text;
 
-public class SettingsController implements Initializable { 
+import javafx.scene.control.Button;
 
-//    @FXML 
-//    private Label label; 
+import javafx.scene.control.TextField;
 
-    private SettingsModel model; 
+import javafx.scene.control.Label;
 
-    @Override 
-    public void initialize(URL location, ResourceBundle resources) { 
-        model = new SettingsModel(); 
-    } 
+import javafx.scene.control.RadioButton;
 
-//    public void manageButton() { 
-//        label.setText(model.getHello()); 
-//    } 
-} 
+import javafx.scene.control.CheckBox;
+
+public class SettingsController {
+	@FXML
+	private Label labelAge;
+	@FXML
+	private TextField textfieldAge;
+	@FXML
+	private Label labelSex;
+	@FXML
+	private RadioButton radioSexFemale;
+	@FXML
+	private TextField textfieldName;
+	@FXML
+	private RadioButton radioSexMale;
+	@FXML
+	private Label labelWritingDirection;
+	@FXML
+	private RadioButton radioWritingDirectionLR;
+	@FXML
+	private RadioButton radioWritingDirectionRL;
+	@FXML
+	private Label labelWritingHand;
+	@FXML
+	private RadioButton radioWritingHandL;
+	@FXML
+	private RadioButton radioWritingHandR;
+	@FXML
+	private Label labelComment;
+	@FXML
+	private TextField textfieldComment;
+	@FXML
+	private RadioButton radioInputDeviceMouse;
+	@FXML
+	private RadioButton radioInputDeviceTouch;
+	@FXML
+	private RadioButton radioInputDevicePen;
+	@FXML
+	private TextField textfieldDeviceType;
+	@FXML
+	private Text captionExperimentee;
+	@FXML
+	private Text captionInputDevice;
+	@FXML
+	private CheckBox checkboxWriting10Finger;
+	@FXML
+	private Label labelWriting10Finger;
+	@FXML
+	private Label labelName;
+	@FXML
+	private Label labelInputDevice;
+	@FXML
+	private Label labelDeviceType;
+	@FXML
+	private RadioButton radioTypeFirst;
+	@FXML
+	private RadioButton radioTypeSecond;
+	@FXML
+	private RadioButton radioTypeThird;
+	@FXML
+	private TextField textfieldRounds;
+	@FXML
+	private Text captionAttempts;
+	@FXML
+	private Label labelRounds;
+	@FXML
+	private CheckBox checkboxIcons;
+	@FXML
+	private Label labelIcons;
+	@FXML
+	private Button buttonStart;
+	@FXML
+	private Label labelType;
+
+}

@@ -1,14 +1,23 @@
 package de.hska.iiwi.fittslaw;
 
 import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvBadConverterException;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import de.hska.iiwi.fittslaw.SettingsModel.ExperimentType;
 import de.hska.iiwi.fittslaw.SettingsModel.Gender;
@@ -24,9 +33,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 public class SettingsController {
-	
+
 	private static final Logger LOG = Logger.getRootLogger();
-	
+
+	// TODO labels nicht notwendig?! nur textinputs?
+	// oder labelname als erste spalte fuer titel
+
 	@FXML
 	private Label labelAge;
 	@FXML
@@ -92,8 +104,7 @@ public class SettingsController {
 	@FXML
 	private CheckBox checkboxIcons;
 	@FXML
-	private Label labelIcons; // TODO labels nicht notwendig?! nur textinputs?
-								// oder labelname als erste spalte fuer titel
+	private Label labelIcons;
 	@FXML
 	private Button buttonStart;
 	@FXML
@@ -103,43 +114,41 @@ public class SettingsController {
 
 	@FXML
 	protected void saveButtonClicked(ActionEvent event) {
-		System.out.println("click");
-//		bindDataToModel(); TODO 
+		// if (isInputValid()) {
+		LOG.info("Input successfully validated!");
+		// bindDataToModel(); TODO
 		bindMockupData();
 
-		FileWriter writer;
 		try {
-			writer = new FileWriter("./settings6.csv");
-			
-			final CustomMappingStrategy<SettingsModel> mappingStrategy = new CustomMappingStrategy<>();
-			mappingStrategy.setType(SettingsModel.class);
+			List<ValueHolder> content = new ArrayList<ValueHolder>();
+			for (Field field : model.getClass().getDeclaredFields()) {
+				field.setAccessible(true);
+				if (!Modifier.isPrivate(field.getModifiers())) {
+					continue;
+				}
+				String s1 = field.getName().substring(0, 1).toUpperCase();
+				String nameCapitalized = s1 + field.getName().substring(1);
+				content.add(new ValueHolder(nameCapitalized, String.valueOf(field.get(model))));
+			}
 
-			StatefulBeanToCsvBuilder<SettingsModel> beanToCsv = new StatefulBeanToCsvBuilder<SettingsModel>(writer);
-//			 beanToCsv.withLineEnd("\t"); //settings1
-			// beanToCsv.withSeparator(";".charAt(0)); //settings2
-			// beanToCsv.withEscapechar(";".charAt(0)); //settings3
+			final ColumnPositionMappingStrategy<ValueHolder> strategy = new ColumnPositionMappingStrategy<>();
+			strategy.setType(ValueHolder.class);
+			strategy.setColumnMapping("key", "value");
 
-			StatefulBeanToCsv<SettingsModel> beanWriter = beanToCsv.withMappingStrategy(mappingStrategy).build();
-			beanWriter.write(model);
+			LOG.info("Start generating csv file...");
+			FileWriter writer = new FileWriter("./settings.csv");
+			StatefulBeanToCsvBuilder<ValueHolder> csvBuilder = new StatefulBeanToCsvBuilder<>(writer);
+			StatefulBeanToCsv<ValueHolder> beanWriter = csvBuilder.withSeparator(';')
+					.withLineEnd(";" + System.lineSeparator()).withMappingStrategy(strategy).build();
+			beanWriter.write(content);
 			writer.close();
-
-//			String[] strings = new String[10];
-//			for (int i = 0; i < 10; i++) {
-//				strings[i] = "Testing";
-//			}
-//			String[] wrap = new String[1]; // probably saving on GC
-//			
-//			CSVWriter writer2 = new CSVWriter(new FileWriter("testing.csv"), '\t');
-//			for (String s : strings) {
-//				wrap[0] = s;
-//				writer2.writeNext(wrap);
-//			}
-//			 writer2.close();
-
-		} catch (Exception e) {
-			// TODO log
+			LOG.info("Generated csv file.");
+		} catch (CsvBadConverterException | SecurityException | IllegalArgumentException | IllegalAccessException
+				| CsvDataTypeMismatchException | CsvRequiredFieldEmptyException | IOException e) {
+			LOG.error("Cannot generate csv file: " + e.getMessage());
+			e.printStackTrace();
 		}
-
+		// }
 	}
 
 	private void bindDataToModel() {
@@ -152,20 +161,20 @@ public class SettingsController {
 		// users
 		model.setName(textfieldName.getText());
 		model.setUserAge(Integer.parseInt(textfieldAge.getText()));
-		model.setUserGender(Gender.MALE); //TODO
-		model.setUserWritingDirection(WritingDirection.LEFTTORIGHT); //TODO
-		model.setUserWritingHand(WritingHand.RIGHT); //TODO
+		model.setUserGender(Gender.MALE); // TODO
+		model.setUserWritingDirection(WritingDirection.LEFTTORIGHT); // TODO
+		model.setUserWritingHand(WritingHand.RIGHT); // TODO
 		model.setUserTenFingerSystem(checkboxWriting10Finger.isSelected());
 		model.setUserComment(textfieldComment.getText());
-		
+
 		// experiment
-		model.setExperimentType(ExperimentType.Type1); //TODO
+		model.setExperimentType(ExperimentType.Type1); // TODO
 		model.setExperimentRounds(Integer.parseInt(textfieldRounds.getText()));
 		model.setExperimentIcons(checkboxIcons.isSelected());
-		model.setExperimentAborted(false); //TODO
-		
+		model.setExperimentAborted(false); // TODO
+
 		// others
-		model.setVersion("1.0.0"); //TODO
+		model.setVersion("1.0.0"); // TODO
 		try {
 			model.setComputerName(InetAddress.getLocalHost().getHostName());
 		} catch (UnknownHostException e) {
@@ -174,7 +183,7 @@ public class SettingsController {
 		model.setOperatingSystem(System.getProperty("os.name"));
 		model.setTimestamp(new Date());
 	}
-	
+
 	private void bindMockupData() {
 		// input device
 		model.setDeviceMouse(true);
@@ -184,24 +193,64 @@ public class SettingsController {
 
 		// users
 		model.setName("Julian");
+		// model.setName(textfieldName.getText());
 		model.setUserAge(25);
 		model.setUserGender(Gender.MALE);
 		model.setUserWritingDirection(WritingDirection.LEFTTORIGHT);
 		model.setUserWritingHand(WritingHand.RIGHT);
 		model.setUserTenFingerSystem(false);
 		model.setUserComment("Nice comment");
-		
+
 		// experiment
 		model.setExperimentType(ExperimentType.Type1);
 		model.setExperimentRounds(100);
 		model.setExperimentIcons(false);
 		model.setExperimentAborted(false);
-		
+
 		// others
 		model.setVersion("1.0.0");
 		model.setComputerName("Zenbook");
 		model.setOperatingSystem(System.getProperty("os.name"));
 		model.setTimestamp(new Date());
+	}
+
+	/**
+	 * Validates the user input in the text fields.
+	 * 
+	 * @return true if the input is valid
+	 */
+	private boolean isInputValid() {
+		LOG.info("Validating input...");
+		boolean b = true;
+
+		if (!radioInputDeviceMouse.isSelected() && !radioInputDeviceTouch.isSelected()
+				&& !radioInputDeviceTouch.isSelected()) {
+			radioInputDeviceMouse.getStyleClass().add("error");
+			radioInputDeviceTouch.getStyleClass().add("error");
+			radioInputDevicePen.getStyleClass().add("error");
+			b = false;
+		} else {
+			radioInputDeviceMouse.getStyleClass().remove("error");
+			radioInputDeviceTouch.getStyleClass().remove("error");
+			radioInputDevicePen.getStyleClass().remove("error");
+		}
+
+		if (textfieldName.getText().length() > 0) {
+			textfieldName.getStyleClass().remove("error");
+		} else {
+			textfieldName.getStyleClass().add("error");
+			b = false;
+		}
+
+		if (textfieldAge.getText().length() > 0 && textfieldAge.getText().length() < 3
+				&& textfieldAge.getText().matches("[0-9]+")) {
+			textfieldAge.getStyleClass().remove("error");
+		} else {
+			textfieldAge.getStyleClass().add("error");
+			b = false;
+		}
+
+		return b;
 	}
 
 }

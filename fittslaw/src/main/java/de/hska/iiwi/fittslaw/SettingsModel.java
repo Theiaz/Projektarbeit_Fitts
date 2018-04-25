@@ -2,7 +2,6 @@ package de.hska.iiwi.fittslaw;
 
 import java.util.Date;
 
-import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvBindByPosition;
 
 public class SettingsModel {
@@ -23,80 +22,61 @@ public class SettingsModel {
 		Type1, Type2
 	}
 
-	@CsvBindByName(column = "DeviceMouse", required = true)
-	@CsvBindByPosition(position = 0)
+	@CsvBindByPosition(position = 0, required = true)
 	private boolean deviceMouse;
 
-	@CsvBindByName(column = "DeviceTouch", required = true)
-	@CsvBindByPosition(position = 1)
+	@CsvBindByPosition(position = 1, required = true)
 	private boolean deviceTouch;
 
-	@CsvBindByName(column = "DevicePen", required = true)
-	@CsvBindByPosition(position = 2)
+	@CsvBindByPosition(position = 2, required = true)
 	private boolean devicePen;
 
-	@CsvBindByName(column = "DeviceType")
-	@CsvBindByPosition(position = 3)
+	@CsvBindByPosition(position = 3, required = true)
 	private String deviceType;
 
-	@CsvBindByName(column = "UserName", required = true)
-	@CsvBindByPosition(position = 4)
+	@CsvBindByPosition(position = 4, required = true)
 	private String userName;
 
-	@CsvBindByName(column = "UserAge", required = true)
-	@CsvBindByPosition(position = 5)
+	@CsvBindByPosition(position = 5, required = true)
 	private int userAge;
 
-	@CsvBindByName(column = "UserGender", required = true)
-	@CsvBindByPosition(position = 6)
+	@CsvBindByPosition(position = 6, required = true)
 	private Gender userGender;
 
-	@CsvBindByName(column = "UserWritingHand", required = true)
-	@CsvBindByPosition(position = 7)
+	@CsvBindByPosition(position = 7, required = true)
 	private WritingHand userWritingHand;
 
-	@CsvBindByName(column = "UserWritingDirection", required = true)
-	@CsvBindByPosition(position = 8)
+	@CsvBindByPosition(position = 8, required = true)
 	private WritingDirection userWritingDirection;
 
-	@CsvBindByName(column = "UserTenFingerSystem")
 	@CsvBindByPosition(position = 9)
 	private boolean userTenFingerSystem;
 
-	@CsvBindByName(column = "UserComment")
 	@CsvBindByPosition(position = 10)
 	private String userComment;
 
-	@CsvBindByName(column = "ExperimentType", required = true)
-	@CsvBindByPosition(position = 11)
+	@CsvBindByPosition(position = 11, required = true)
 	private ExperimentType experimentType;
 
-	@CsvBindByName(column = "ExperimentRounds", required = true)
-	@CsvBindByPosition(position = 12)
+	@CsvBindByPosition(position = 12, required = true)
 	private int experimentRounds;
 
-	@CsvBindByName(column = "ExperimentIcons")
 	@CsvBindByPosition(position = 13)
 	private boolean experimentIcons;
 
-	@CsvBindByName(column = "ExperimentAborted")
 	@CsvBindByPosition(position = 14)
 	private boolean experimentAborted;
 
-	@CsvBindByName(column = "Version")
 	@CsvBindByPosition(position = 15)
 	private String version;
 
-	@CsvBindByName(column = "ComputerName", required = true)
-	@CsvBindByPosition(position = 16)
+	@CsvBindByPosition(position = 16, required = true)
 	private String computerName;
 
-	@CsvBindByName(column = "OS", required = true)
-	@CsvBindByPosition(position = 17)
+	@CsvBindByPosition(position = 17, required = true)
 	private String operatingSystem;
 
-	@CsvBindByName(column = "Timestamp", required = true)
-	@CsvBindByPosition(position = 18)
+	@CsvBindByPosition(position = 18, required = true)
 	private Date timestamp;
 
 	public boolean isDeviceMouse() {

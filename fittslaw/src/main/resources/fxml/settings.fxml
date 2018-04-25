@@ -14,11 +14,28 @@
          <children>
             <GridPane alignment="center" hgap="10.0" vgap="10">
                <children>
+                  <Text fx:id="captionInputDevice" text="Input Device" underline="true" GridPane.columnSpan="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="labelInputDevice" text="Input device:" GridPane.rowIndex="1" />
+             	  <RadioButton fx:id="radioInputDeviceMouse" mnemonicParsing="false" text="Mouse" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <RadioButton fx:id="radioInputDeviceTouch" mnemonicParsing="false" text="Touch" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <RadioButton fx:id="radioInputDevicePen" mnemonicParsing="false" text="Pen" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="labelDeviceType" text="Device Type:" GridPane.rowIndex="4" />
+                  <TextField fx:id="textfieldDeviceType" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Text fx:id="captionExperimentee" text="Experimentee" underline="true" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="labelName" text="Name:" GridPane.rowIndex="6" />
+                  <TextField fx:id="textfieldName" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <Label fx:id="labelAge" text="Age:" GridPane.rowIndex="7" />
                   <TextField fx:id="textfieldAge" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Label fx:id="labelSex" text="Sex:" GridPane.rowIndex="8" />
                   <RadioButton fx:id="radioSexFemale" mnemonicParsing="false" text="Female" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <TextField fx:id="textfieldName" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <RadioButton fx:id="radioSexMale" mnemonicParsing="false" text="Male" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <Label fx:id="labelWritingDirection" minWidth="-Infinity" text="Writing direction:" GridPane.rowIndex="11" />
                   <RadioButton fx:id="radioWritingDirectionLR" mnemonicParsing="false" text="Left to right" GridPane.columnIndex="1" GridPane.rowIndex="11" />
@@ -26,27 +43,10 @@
                   <Label fx:id="labelWritingHand" minWidth="-Infinity" text="Writing hand:" GridPane.rowIndex="13" />
                   <RadioButton fx:id="radioWritingHandL" mnemonicParsing="false" text="Left " GridPane.columnIndex="1" GridPane.rowIndex="13" />
                   <RadioButton fx:id="radioWritingHandR" mnemonicParsing="false" text="Right" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                  <Label fx:id="labelWriting10Finger" minWidth="-Infinity" text="10 finger system:" GridPane.rowIndex="15" />
+				  <CheckBox fx:id="checkboxWriting10Finger" mnemonicParsing="false" text="Used" GridPane.columnIndex="1" GridPane.rowIndex="15" />
                   <Label fx:id="labelComment" text="Comment:" GridPane.rowIndex="16" />
                   <TextField fx:id="textfieldComment" GridPane.columnIndex="1" GridPane.rowIndex="16" />
-                  <RadioButton fx:id="radioInputDeviceMouse" mnemonicParsing="false" text="Mouse" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <RadioButton fx:id="radioInputDeviceTouch" mnemonicParsing="false" text="Touch" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <RadioButton fx:id="radioInputDevicePen" mnemonicParsing="false" text="Pen" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="textfieldDeviceType" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Text fx:id="captionExperimentee" text="Experimentee" underline="true" GridPane.columnSpan="2" GridPane.rowIndex="5">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="captionInputDevice" text="Input Device" underline="true" GridPane.columnSpan="2">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <CheckBox fx:id="checkboxWriting10Finger" mnemonicParsing="false" text="Used" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-                  <Label fx:id="labelWriting10Finger" minWidth="-Infinity" text="10 finger system:" GridPane.rowIndex="15" />
-                  <Label fx:id="labelName" text="Name:" GridPane.rowIndex="6" />
-                  <Label fx:id="labelInputDevice" text="Input device:" GridPane.rowIndex="1" />
-                  <Label fx:id="labelDeviceType" text="Device Type:" GridPane.rowIndex="4" />
                </children>
                <columnConstraints>
                   <ColumnConstraints />

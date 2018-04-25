@@ -136,7 +136,7 @@
       </MenuBar>
    </top>
    <bottom>
-      <Button fx:id="buttonStart" minWidth="150.0" mnemonicParsing="false" text="Start" BorderPane.alignment="CENTER_RIGHT">
+      <Button fx:id="buttonStart" minWidth="150.0" mnemonicParsing="false" onAction="#saveButtonClicked" text="Start" BorderPane.alignment="CENTER_RIGHT">
          <BorderPane.margin>
             <Insets bottom="5.0" right="5.0" top="10.0" />
          </BorderPane.margin>

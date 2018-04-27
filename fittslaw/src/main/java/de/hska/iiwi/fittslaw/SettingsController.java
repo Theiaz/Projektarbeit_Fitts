@@ -114,41 +114,41 @@ public class SettingsController {
 
 	@FXML
 	protected void saveButtonClicked(ActionEvent event) {
-		// if (isInputValid()) {
-		LOG.info("Input successfully validated!");
-		// bindDataToModel(); TODO
-		bindMockupData();
+		if (isInputValid()) {
+			LOG.info("Input successfully validated!");
+			// bindDataToModel(); TODO
+			bindMockupData();
 
-		try {
-			List<ValueHolder> content = new ArrayList<ValueHolder>();
-			for (Field field : model.getClass().getDeclaredFields()) {
-				field.setAccessible(true);
-				if (!Modifier.isPrivate(field.getModifiers())) {
-					continue;
+			try {
+				List<ValueHolder> content = new ArrayList<ValueHolder>();
+				for (Field field : model.getClass().getDeclaredFields()) {
+					field.setAccessible(true);
+					if (!Modifier.isPrivate(field.getModifiers())) {
+						continue;
+					}
+					String s1 = field.getName().substring(0, 1).toUpperCase();
+					String nameCapitalized = s1 + field.getName().substring(1);
+					content.add(new ValueHolder(nameCapitalized, String.valueOf(field.get(model))));
 				}
-				String s1 = field.getName().substring(0, 1).toUpperCase();
-				String nameCapitalized = s1 + field.getName().substring(1);
-				content.add(new ValueHolder(nameCapitalized, String.valueOf(field.get(model))));
+
+				final ColumnPositionMappingStrategy<ValueHolder> strategy = new ColumnPositionMappingStrategy<>();
+				strategy.setType(ValueHolder.class);
+				strategy.setColumnMapping("key", "value");
+
+				LOG.info("Start generating csv file...");
+				FileWriter writer = new FileWriter("./settings.csv");
+				StatefulBeanToCsvBuilder<ValueHolder> csvBuilder = new StatefulBeanToCsvBuilder<>(writer);
+				StatefulBeanToCsv<ValueHolder> beanWriter = csvBuilder.withSeparator(';')
+						.withLineEnd(";" + System.lineSeparator()).withMappingStrategy(strategy).build();
+				beanWriter.write(content);
+				writer.close();
+				LOG.info("Generated csv file.");
+			} catch (CsvBadConverterException | SecurityException | IllegalArgumentException | IllegalAccessException
+					| CsvDataTypeMismatchException | CsvRequiredFieldEmptyException | IOException e) {
+				LOG.error("Cannot generate csv file: " + e.getMessage());
+				e.printStackTrace();
 			}
-
-			final ColumnPositionMappingStrategy<ValueHolder> strategy = new ColumnPositionMappingStrategy<>();
-			strategy.setType(ValueHolder.class);
-			strategy.setColumnMapping("key", "value");
-
-			LOG.info("Start generating csv file...");
-			FileWriter writer = new FileWriter("./settings.csv");
-			StatefulBeanToCsvBuilder<ValueHolder> csvBuilder = new StatefulBeanToCsvBuilder<>(writer);
-			StatefulBeanToCsv<ValueHolder> beanWriter = csvBuilder.withSeparator(';')
-					.withLineEnd(";" + System.lineSeparator()).withMappingStrategy(strategy).build();
-			beanWriter.write(content);
-			writer.close();
-			LOG.info("Generated csv file.");
-		} catch (CsvBadConverterException | SecurityException | IllegalArgumentException | IllegalAccessException
-				| CsvDataTypeMismatchException | CsvRequiredFieldEmptyException | IOException e) {
-			LOG.error("Cannot generate csv file: " + e.getMessage());
-			e.printStackTrace();
 		}
-		// }
 	}
 
 	private void bindDataToModel() {
@@ -223,30 +223,71 @@ public class SettingsController {
 		LOG.info("Validating input...");
 		boolean b = true;
 
+		// Remove all styles to avoid duplicates
+		radioInputDeviceMouse.getStyleClass().remove("error");
+		radioInputDeviceTouch.getStyleClass().remove("error");
+		radioInputDevicePen.getStyleClass().remove("error");
+
+		textfieldName.getStyleClass().remove("error");
+		textfieldAge.getStyleClass().remove("error");
+		radioSexMale.getStyleClass().remove("error");
+		radioSexFemale.getStyleClass().remove("error");
+		radioWritingDirectionLR.getStyleClass().remove("error");
+		radioWritingDirectionRL.getStyleClass().remove("error");
+		radioWritingHandL.getStyleClass().remove("error");
+		radioWritingHandR.getStyleClass().remove("error");
+
+		radioTypeFirst.getStyleClass().remove("error");
+		radioTypeSecond.getStyleClass().remove("error");
+		radioTypeThird.getStyleClass().remove("error");
+		textfieldRounds.getStyleClass().remove("error");
+
 		if (!radioInputDeviceMouse.isSelected() && !radioInputDeviceTouch.isSelected()
 				&& !radioInputDeviceTouch.isSelected()) {
 			radioInputDeviceMouse.getStyleClass().add("error");
 			radioInputDeviceTouch.getStyleClass().add("error");
 			radioInputDevicePen.getStyleClass().add("error");
 			b = false;
-		} else {
-			radioInputDeviceMouse.getStyleClass().remove("error");
-			radioInputDeviceTouch.getStyleClass().remove("error");
-			radioInputDevicePen.getStyleClass().remove("error");
 		}
 
-		if (textfieldName.getText().length() > 0) {
-			textfieldName.getStyleClass().remove("error");
-		} else {
+		if (textfieldName.getText().length() <= 0) {
 			textfieldName.getStyleClass().add("error");
 			b = false;
 		}
 
-		if (textfieldAge.getText().length() > 0 && textfieldAge.getText().length() < 3
-				&& textfieldAge.getText().matches("[0-9]+")) {
-			textfieldAge.getStyleClass().remove("error");
-		} else {
+		if (textfieldAge.getText().length() <= 0 || textfieldAge.getText().length() > 2
+				|| !textfieldAge.getText().matches("[0-9]+")) {
 			textfieldAge.getStyleClass().add("error");
+			b = false;
+		}
+
+		if (!radioSexMale.isSelected() && !radioSexFemale.isSelected()) {
+			radioSexMale.getStyleClass().add("error");
+			radioSexFemale.getStyleClass().add("error");
+			b = false;
+		}
+
+		if (!radioWritingDirectionLR.isSelected() && !radioWritingDirectionRL.isSelected()) {
+			radioWritingDirectionLR.getStyleClass().add("error");
+			radioWritingDirectionRL.getStyleClass().add("error");
+			b = false;
+		}
+
+		if (!radioWritingHandL.isSelected() && !radioWritingHandL.isSelected()) {
+			radioWritingHandL.getStyleClass().add("error");
+			radioWritingHandR.getStyleClass().add("error");
+			b = false;
+		}
+
+		if (!radioTypeFirst.isSelected() && !radioTypeSecond.isSelected() && !radioTypeThird.isSelected()) {
+			radioTypeFirst.getStyleClass().add("error");
+			radioTypeSecond.getStyleClass().add("error");
+			radioTypeThird.getStyleClass().add("error");
+			b = false;
+		}
+
+		if (textfieldRounds.getText().length() <= 0 || !textfieldRounds.getText().matches("[0-9]+")) {
+			textfieldRounds.getStyleClass().add("error");
 			b = false;
 		}
 

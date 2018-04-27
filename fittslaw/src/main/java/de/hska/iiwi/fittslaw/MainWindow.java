@@ -30,6 +30,7 @@ public class MainWindow extends Application {
 		}
 		
 		Scene scene = new Scene(root);
+		scene.getStylesheets().add("/styles.css");
 
 		primaryStage.setScene(scene);
 		primaryStage.show();

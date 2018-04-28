@@ -94,8 +94,6 @@ public class SettingsController {
 	@FXML
 	private RadioButton radioTypeSecond;
 	@FXML
-	private RadioButton radioTypeThird;
-	@FXML
 	private TextField textfieldRounds;
 	@FXML
 	private Text captionAttempts;
@@ -116,8 +114,8 @@ public class SettingsController {
 	protected void saveButtonClicked(ActionEvent event) {
 		if (isInputValid()) {
 			LOG.info("Input successfully validated!");
-			// bindDataToModel(); TODO
-			bindMockupData();
+			bindDataToModel();
+			// bindMockupData();
 
 			try {
 				List<ValueHolder> content = new ArrayList<ValueHolder>();
@@ -161,14 +159,36 @@ public class SettingsController {
 		// users
 		model.setName(textfieldName.getText());
 		model.setUserAge(Integer.parseInt(textfieldAge.getText()));
-		model.setUserGender(Gender.MALE); // TODO
-		model.setUserWritingDirection(WritingDirection.LEFTTORIGHT); // TODO
-		model.setUserWritingHand(WritingHand.RIGHT); // TODO
+		if (radioSexMale.isSelected()) {
+			model.setUserGender(Gender.MALE);
+		} else if (radioSexFemale.isSelected()) {
+			model.setUserGender(Gender.FEMALE);
+		}
+
+		if (radioWritingDirectionLR.isSelected()) {
+			model.setUserWritingDirection(WritingDirection.LEFTTORIGHT);
+		} else if (radioWritingDirectionRL.isSelected()) {
+			model.setUserWritingDirection(WritingDirection.RIGHTTOLEFT);
+		}
+
+		if (radioWritingHandL.isSelected()) {
+			model.setUserWritingHand(WritingHand.LEFT);
+		} else if (radioWritingHandR.isSelected()) {
+			model.setUserWritingHand(WritingHand.RIGHT);
+		}
+
 		model.setUserTenFingerSystem(checkboxWriting10Finger.isSelected());
 		model.setUserComment(textfieldComment.getText());
 
 		// experiment
-		model.setExperimentType(ExperimentType.Type1); // TODO
+		if (radioTypeFirst.isSelected()) {
+			model.setExperimentType(ExperimentType.Type1);
+		} else if (radioTypeSecond.isSelected()) {
+			model.setExperimentType(ExperimentType.Type2);
+		}
+
+		model.setExperimentType(ExperimentType.Type1);
+
 		model.setExperimentRounds(Integer.parseInt(textfieldRounds.getText()));
 		model.setExperimentIcons(checkboxIcons.isSelected());
 		model.setExperimentAborted(false); // TODO
@@ -239,7 +259,6 @@ public class SettingsController {
 
 		radioTypeFirst.getStyleClass().remove("error");
 		radioTypeSecond.getStyleClass().remove("error");
-		radioTypeThird.getStyleClass().remove("error");
 		textfieldRounds.getStyleClass().remove("error");
 
 		if (!radioInputDeviceMouse.isSelected() && !radioInputDeviceTouch.isSelected()
@@ -273,16 +292,15 @@ public class SettingsController {
 			b = false;
 		}
 
-		if (!radioWritingHandL.isSelected() && !radioWritingHandL.isSelected()) {
+		if (!radioWritingHandL.isSelected() && !radioWritingHandR.isSelected()) {
 			radioWritingHandL.getStyleClass().add("error");
 			radioWritingHandR.getStyleClass().add("error");
 			b = false;
 		}
 
-		if (!radioTypeFirst.isSelected() && !radioTypeSecond.isSelected() && !radioTypeThird.isSelected()) {
+		if (!radioTypeFirst.isSelected() && !radioTypeSecond.isSelected()) {
 			radioTypeFirst.getStyleClass().add("error");
 			radioTypeSecond.getStyleClass().add("error");
-			radioTypeThird.getStyleClass().add("error");
 			b = false;
 		}
 

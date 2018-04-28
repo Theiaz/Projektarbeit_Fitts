@@ -95,7 +95,6 @@
                         <ToggleGroup fx:id="toggleExperimentType" />
                      </toggleGroup></RadioButton>
                   <RadioButton fx:id="radioTypeSecond" mnemonicParsing="false" text="Type 2" toggleGroup="$toggleExperimentType" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <RadioButton fx:id="radioTypeThird" mnemonicParsing="false" text="Type 3" toggleGroup="$toggleExperimentType" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="textfieldRounds" text="100" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Text fx:id="captionAttempts" text="Attempts" underline="true" GridPane.columnSpan="2">
                      <font>

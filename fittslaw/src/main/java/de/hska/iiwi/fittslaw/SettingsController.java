@@ -33,6 +33,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.RadioMenuItem;
@@ -116,14 +117,23 @@ public class SettingsController implements Initializable {
 	@FXML
 	private Label labelType;
 	@FXML
+	private Menu menuFile;
+	@FXML
+	private Menu menuLanguage;
+	@FXML
+	private Menu menuHelp;
+	@FXML
 	private MenuItem menuItemClose;
 	@FXML
 	private RadioMenuItem menuItemEnglish;
 	@FXML
 	private RadioMenuItem menuItemGerman;
+	@FXML
+	private MenuItem menuItemAbout;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		OBSERVABLE_RESOURCES.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_EN));
 		bindI18NText();
 
 		menuItemEnglish.setSelected(true);
@@ -191,9 +201,47 @@ public class SettingsController implements Initializable {
 	}
 	
 	private void bindI18NText() {
-		OBSERVABLE_RESOURCES.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_EN));
+		//menu
+		menuFile.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuFile"));
 		menuItemClose.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuItemClose"));
+		menuLanguage.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuLanguage"));
+		menuItemEnglish.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuItemEnglish"));
+		menuItemGerman.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuItemGerman"));
+		menuHelp.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuHelp"));
+		menuItemAbout.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuItemAbout"));
+		
+		captionInputDevice.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("captionInputDevice"));
+		labelInputDevice.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelInputDevice"));
+		radioInputDeviceMouse.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioInputDeviceMouse"));
+		radioInputDeviceTouch.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioInputDeviceTouch"));
+		radioInputDevicePen.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioInputDevicePen"));
+		labelDeviceType.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelDeviceType"));
+		
+		captionExperimentee.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("captionExperimentee"));
+		labelName.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelName"));
+		labelAge.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelAge"));
+		labelSex.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelSex"));
 		radioSexFemale.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioSexFemale"));
+		radioSexMale.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioSexMale"));
+		labelWritingDirection.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelWritingDirection"));
+		radioWritingDirectionLR.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioWritingDirectionLR"));
+		radioWritingDirectionRL.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioWritingDirectionRL"));
+		labelWritingHand.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelWritingHand"));
+		radioWritingHandL.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioWritingHandL"));
+		radioWritingHandR.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioWritingHandR"));
+		labelWriting10Finger.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelWriting10Finger"));
+		checkboxWriting10Finger.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("checkboxWriting10Finger"));
+		labelComment.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelComment"));
+		
+		captionAttempts.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("captionAttempts"));
+		labelType.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelType"));
+		radioTypeFirst.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioTypeFirst"));
+		radioTypeSecond.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioTypeSecond"));
+		labelRounds.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelRounds"));
+		labelIcons.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelIcons"));
+		checkboxIcons.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("checkboxIcons"));
+		
+		buttonStart.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("buttonStart"));
 	}
 
 	private void bindDataToModel() {

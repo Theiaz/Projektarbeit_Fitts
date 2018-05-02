@@ -43,7 +43,10 @@
                         <ToggleGroup fx:id="toggleGender" />
                      </toggleGroup></RadioButton>
                   <RadioButton fx:id="radioSexMale" mnemonicParsing="false" text="Male" toggleGroup="$toggleGender" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <Label fx:id="labelWritingDirection" minWidth="-Infinity" text="Writing direction:" GridPane.rowIndex="11" />
+                  <Label fx:id="labelWritingDirection" minWidth="-Infinity" text="Writing direction:" GridPane.rowIndex="11">
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin></Label>
                   <RadioButton fx:id="radioWritingDirectionLR" mnemonicParsing="false" text="Left to right" GridPane.columnIndex="1" GridPane.rowIndex="11">
                      <toggleGroup>
                         <ToggleGroup fx:id="toggleWritingDirection" />
@@ -55,13 +58,16 @@
                         <ToggleGroup fx:id="toggleWritingHand" />
                      </toggleGroup></RadioButton>
                   <RadioButton fx:id="radioWritingHandR" mnemonicParsing="false" text="Right" toggleGroup="$toggleWritingHand" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                  <Label fx:id="labelWriting10Finger" minWidth="-Infinity" text="10 finger system:" GridPane.rowIndex="15" />
+                  <Label fx:id="labelWriting10Finger" minWidth="-Infinity" text="10 finger system:" GridPane.rowIndex="15">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding></Label>
 				  <CheckBox fx:id="checkboxWriting10Finger" mnemonicParsing="false" text="Used" GridPane.columnIndex="1" GridPane.rowIndex="15" />
                   <Label fx:id="labelComment" text="Comment:" GridPane.rowIndex="16" />
                   <TextField fx:id="textfieldComment" GridPane.columnIndex="1" GridPane.rowIndex="16" />
                </children>
                <columnConstraints>
-                  <ColumnConstraints />
+                  <ColumnConstraints minWidth="-Infinity" />
                   <ColumnConstraints />
                </columnConstraints>
                <padding>
@@ -101,13 +107,16 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Label fx:id="labelRounds" text="Rounds:" GridPane.rowIndex="4" />
+                  <Label fx:id="labelRounds" text="Rounds:" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin></Label>
                   <CheckBox fx:id="checkboxIcons" mnemonicParsing="false" text="Used" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <Label fx:id="labelIcons" text="Icons:" GridPane.rowIndex="6" />
                   <Label fx:id="labelType" text="Type:" GridPane.rowIndex="1" />
                </children>
                <columnConstraints>
-                  <ColumnConstraints />
+                  <ColumnConstraints minWidth="-Infinity" />
                   <ColumnConstraints />
                </columnConstraints>
                <padding>
@@ -131,12 +140,12 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu fx:id="menuFile" mnemonicParsing="false" text="File">
             <items>
               <MenuItem fx:id="menuItemClose" mnemonicParsing="false" text="menuItemClose" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Language">
+          <Menu fx:id="menuLanguage" mnemonicParsing="false" text="Language">
             <items>
               	<RadioMenuItem fx:id="menuItemEnglish" mnemonicParsing="false" text="English">
                      <toggleGroup>
@@ -145,9 +154,9 @@
                 <RadioMenuItem fx:id="menuItemGerman" mnemonicParsing="false" text="German" toggleGroup="$toggleLanguage" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu fx:id="menuHelp" mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="menuItemAbout" mnemonicParsing="false" text="About" />
             </items>
           </Menu>
         </menus>

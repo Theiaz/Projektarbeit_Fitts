@@ -6,18 +6,18 @@ import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
-public class ObservableResourceSingleton {
+public class ObservableResourcesSingleton {
 
 	private ObjectProperty<ResourceBundle> resources = new SimpleObjectProperty<>();
 
-	private static ObservableResourceSingleton instance = null;
+	private static ObservableResourcesSingleton instance = null;
 	
-	private ObservableResourceSingleton() {
+	private ObservableResourcesSingleton() {
 	}
 	
-	public static ObservableResourceSingleton getInstance() {
+	public static ObservableResourcesSingleton getInstance() {
 		if (instance == null) {
-			instance = new ObservableResourceSingleton();
+			instance = new ObservableResourcesSingleton();
 		}
 		return instance;
 	}

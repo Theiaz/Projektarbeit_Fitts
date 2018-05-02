@@ -43,12 +43,9 @@ public class SettingsController implements Initializable {
 
 	private static final Logger LOG = Logger.getRootLogger();
 	
-	private static final ObservableResourceSingleton RESOURCE_FACTORY = ObservableResourceSingleton.getInstance();
+	private static final ObservableResourcesSingleton OBSERVABLE_RESOURCES = ObservableResourcesSingleton.getInstance();
 
 	private final SettingsModel model = new SettingsModel();
-
-//	@FXML
-//	private ResourceBundle bundle;
 
 	@FXML
 	private Label labelAge;
@@ -137,7 +134,7 @@ public class SettingsController implements Initializable {
 					Boolean isNowSelected) {
 				if (isNowSelected) {
 					LOG.info("Selected english language");
-					RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_EN));
+					OBSERVABLE_RESOURCES.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_EN));
 				}
 			}
 		});
@@ -148,7 +145,7 @@ public class SettingsController implements Initializable {
 					Boolean isNowSelected) {
 				if (isNowSelected) {
 					LOG.info("Selected german language");
-					RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_DE));
+					OBSERVABLE_RESOURCES.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_DE));
 				}
 			}
 		});
@@ -194,9 +191,9 @@ public class SettingsController implements Initializable {
 	}
 	
 	private void bindI18NText() {
-		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_EN));
-		menuItemClose.textProperty().bind(RESOURCE_FACTORY.getStringBinding("menuItemClose"));
-		radioSexFemale.textProperty().bind(RESOURCE_FACTORY.getStringBinding("radioSexFemale"));
+		OBSERVABLE_RESOURCES.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_EN));
+		menuItemClose.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuItemClose"));
+		radioSexFemale.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioSexFemale"));
 	}
 
 	private void bindDataToModel() {

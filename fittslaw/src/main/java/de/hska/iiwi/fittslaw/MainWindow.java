@@ -15,10 +15,10 @@ public class MainWindow extends Application {
 
 	private static final Logger LOG = Logger.getRootLogger();
 
-	private static final ObservableResourceSingleton RESOURCE_FACTORY = ObservableResourceSingleton.getInstance();
+	private static final ObservableResourcesSingleton OBSERVABLE_RESOURCES = ObservableResourcesSingleton.getInstance();
 
 	static {
-		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_EN));
+		OBSERVABLE_RESOURCES.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_EN));
 	}
 
 	public static void main(String[] args) {
@@ -31,7 +31,7 @@ public class MainWindow extends Application {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		URL fxmlURL = classLoader.getResource("fxmls/myview.fxml");
 
-		FXMLLoader loader = new FXMLLoader(fxmlURL, RESOURCE_FACTORY.getResources());
+		FXMLLoader loader = new FXMLLoader(fxmlURL, OBSERVABLE_RESOURCES.getResources());
 		loader.setLocation(getClass().getResource(Constants.SCREEN_SETTINGS));
 		Parent root = null;
 		try {

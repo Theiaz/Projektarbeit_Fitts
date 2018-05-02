@@ -133,12 +133,16 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="menuItemClose" mnemonicParsing="false" text="menuItemClose" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Language">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              	<RadioMenuItem fx:id="menuItemEnglish" mnemonicParsing="false" text="English">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="toggleLanguage" />
+                     </toggleGroup></RadioMenuItem>
+                <RadioMenuItem fx:id="menuItemGerman" mnemonicParsing="false" text="German" toggleGroup="$toggleLanguage" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

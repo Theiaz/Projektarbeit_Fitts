@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.InetAddress;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
@@ -23,21 +25,30 @@ import de.hska.iiwi.fittslaw.SettingsModel.ExperimentType;
 import de.hska.iiwi.fittslaw.SettingsModel.Gender;
 import de.hska.iiwi.fittslaw.SettingsModel.WritingDirection;
 import de.hska.iiwi.fittslaw.SettingsModel.WritingHand;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class SettingsController {
+public class SettingsController implements Initializable {
 
 	private static final Logger LOG = Logger.getRootLogger();
+	
+	private static final ObservableResourceSingleton RESOURCE_FACTORY = ObservableResourceSingleton.getInstance();
 
-	// TODO labels nicht notwendig?! nur textinputs?
-	// oder labelname als erste spalte fuer titel
+	private final SettingsModel model = new SettingsModel();
+
+//	@FXML
+//	private ResourceBundle bundle;
 
 	@FXML
 	private Label labelAge;
@@ -107,8 +118,41 @@ public class SettingsController {
 	private Button buttonStart;
 	@FXML
 	private Label labelType;
+	@FXML
+	private MenuItem menuItemClose;
+	@FXML
+	private RadioMenuItem menuItemEnglish;
+	@FXML
+	private RadioMenuItem menuItemGerman;
 
-	private final SettingsModel model = new SettingsModel();
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		bindI18NText();
+
+		menuItemEnglish.setSelected(true);
+
+		menuItemEnglish.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected,
+					Boolean isNowSelected) {
+				if (isNowSelected) {
+					LOG.info("Selected english language");
+					RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_EN));
+				}
+			}
+		});
+
+		menuItemGerman.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected,
+					Boolean isNowSelected) {
+				if (isNowSelected) {
+					LOG.info("Selected german language");
+					RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_DE));
+				}
+			}
+		});
+	}
 
 	@FXML
 	protected void saveButtonClicked(ActionEvent event) {
@@ -147,6 +191,12 @@ public class SettingsController {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	private void bindI18NText() {
+		RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_EN));
+		menuItemClose.textProperty().bind(RESOURCE_FACTORY.getStringBinding("menuItemClose"));
+		radioSexFemale.textProperty().bind(RESOURCE_FACTORY.getStringBinding("radioSexFemale"));
 	}
 
 	private void bindDataToModel() {

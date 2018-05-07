@@ -162,6 +162,11 @@ public class SettingsController implements Initializable {
 	}
 
 	@FXML
+	protected void showAbout(ActionEvent event) {
+		new AboutAlert().showAndWait();
+	}
+	
+	@FXML
 	protected void saveButtonClicked(ActionEvent event) {
 		if (isInputValid()) {
 			LOG.info("Input successfully validated!");

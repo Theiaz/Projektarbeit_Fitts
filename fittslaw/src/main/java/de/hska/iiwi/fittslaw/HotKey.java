@@ -17,7 +17,7 @@ public enum HotKey {
 	CUT("cut", Constants.ICON_CUT, new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN)),
 
 	PASTE("paste", Constants.ICON_PASTE, new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN)),
-	
+
 	PRINT("print", Constants.ICON_PRINT, new KeyCodeCombination(KeyCode.P, KeyCombination.CONTROL_DOWN)),
 
 	SAVE("save", Constants.ICON_SAVE, new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
@@ -54,6 +54,12 @@ public enum HotKey {
 
 	private static int lastInt = -1;
 
+	/**
+	 * Returns a random HotKey. The returned HotKey will always be a different
+	 * one than the last one returned by this method.
+	 * 
+	 * @return random HotKey
+	 */
 	public static HotKey getRandom() {
 		int random;
 		do {

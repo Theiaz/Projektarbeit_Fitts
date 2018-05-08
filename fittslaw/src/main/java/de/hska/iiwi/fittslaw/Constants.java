@@ -9,6 +9,7 @@ public class Constants {
 	public static final String ICON_COPY = "/icons/copy.png";
 	public static final String ICON_CUT = "/icons/cut.png";
 	public static final String ICON_PASTE = "/icons/paste.png";
+	public static final String ICON_PRINT = "/icons/print.png";
 	public static final String ICON_SAVE = "/icons/save.png";
 
 }

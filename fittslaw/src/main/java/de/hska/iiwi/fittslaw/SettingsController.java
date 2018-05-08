@@ -163,7 +163,9 @@ public class SettingsController implements Initializable {
 
 	@FXML
 	protected void showAbout(ActionEvent event) {
+		LOG.info("show about alert");
 		new AboutAlert().showAndWait();
+		LOG.info("close about alert");
 	}
 	
 	@FXML

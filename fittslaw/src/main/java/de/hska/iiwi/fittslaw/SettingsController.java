@@ -38,6 +38,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 public class SettingsController implements Initializable {
@@ -48,6 +49,8 @@ public class SettingsController implements Initializable {
 
 	private final SettingsModel model = new SettingsModel();
 
+	@FXML
+	private HBox parentHBox;
 	@FXML
 	private Label labelAge;
 	@FXML
@@ -170,6 +173,7 @@ public class SettingsController implements Initializable {
 	
 	@FXML
 	protected void saveButtonClicked(ActionEvent event) {
+//		 fillData();
 		if (isInputValid()) {
 			LOG.info("Input successfully validated!");
 			bindDataToModel();
@@ -199,12 +203,43 @@ public class SettingsController implements Initializable {
 				beanWriter.write(content);
 				writer.close();
 				LOG.info("Generated csv file.");
+				startExperiment();
 			} catch (CsvBadConverterException | SecurityException | IllegalArgumentException | IllegalAccessException
 					| CsvDataTypeMismatchException | CsvRequiredFieldEmptyException | IOException e) {
 				LOG.error("Cannot generate csv file: " + e.getMessage());
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	protected void startExperiment() {
+		LOG.info("hiding settings input");
+		parentHBox.setVisible(false);
+		buttonStart.setVisible(false);
+		
+		LOG.info("start experiment");
+		long[] speed = new long[model.getExperimentRounds()];
+		for (int round = 0; round < model.getExperimentRounds(); round++) {
+			HotKey hotKey = HotKey.getRandom();
+			LOG.info("round " + round + ": " + hotKey.getSimpleName());
+			long startTime = System.currentTimeMillis();
+			new HotKeyDialog(hotKey, model).showAndWait();
+			long endTime = System.currentTimeMillis();
+			speed[round] = endTime - startTime;
+		}
+		
+		LOG.info("end experiment");
+		// TODO save to file
+	}
+	
+	private void fillData() {
+		radioInputDeviceMouse.setSelected(true);
+		textfieldName.setText("abc");
+		textfieldAge.setText("12");
+		radioSexFemale.setSelected(true);
+		radioWritingDirectionLR.setSelected(true);
+		radioWritingHandL.setSelected(true);
+		radioTypeFirst.setSelected(true);
 	}
 	
 	private void bindI18NText() {

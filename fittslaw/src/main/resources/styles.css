@@ -5,3 +5,11 @@
 .radio-button.error {
 	-fx-border-color: red;
 }
+
+.hbox.hotkey-dialog {
+	-fx-min-width: 300.0;
+}
+
+.label.hotkey-dialog {
+	-fx-font-size: 80.0;
+} 

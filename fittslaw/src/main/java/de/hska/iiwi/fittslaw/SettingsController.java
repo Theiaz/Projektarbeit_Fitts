@@ -30,6 +30,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -213,7 +214,7 @@ public class SettingsController implements Initializable {
 	}
 	
 	protected void startExperiment() {
-		LOG.info("hiding settings input");
+		LOG.info("hide settings input");
 		parentHBox.setVisible(false);
 		buttonStart.setVisible(false);
 		
@@ -229,13 +230,22 @@ public class SettingsController implements Initializable {
 		}
 		
 		LOG.info("end experiment");
+		
 		// TODO save to file
+		
+		new EndExperimentAlert().showAndWait();
+		
+		LOG.info("show settings input");
+		parentHBox.setVisible(true);
+		buttonStart.setVisible(true);
+
 	}
 	
 	private void fillData() {
 		radioInputDeviceMouse.setSelected(true);
 		textfieldName.setText("abc");
 		textfieldAge.setText("12");
+		textfieldRounds.setText("5");
 		radioSexFemale.setSelected(true);
 		radioWritingDirectionLR.setSelected(true);
 		radioWritingHandL.setSelected(true);

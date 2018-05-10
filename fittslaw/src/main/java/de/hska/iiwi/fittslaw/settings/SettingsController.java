@@ -21,15 +21,14 @@ import com.opencsv.exceptions.CsvBadConverterException;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
-import de.hska.iiwi.fittslaw.AboutAlert;
 import de.hska.iiwi.fittslaw.Constants;
 import de.hska.iiwi.fittslaw.MainWindow;
-import de.hska.iiwi.fittslaw.ObservableResourcesSingleton;
-import de.hska.iiwi.fittslaw.ValueHolder;
 import de.hska.iiwi.fittslaw.settings.SettingsModel.ExperimentType;
 import de.hska.iiwi.fittslaw.settings.SettingsModel.Gender;
 import de.hska.iiwi.fittslaw.settings.SettingsModel.WritingDirection;
 import de.hska.iiwi.fittslaw.settings.SettingsModel.WritingHand;
+import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
+import de.hska.iiwi.fittslaw.util.ValueHolder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -128,57 +127,60 @@ public class SettingsController implements Initializable {
 	}
 
 	@FXML
-	protected void showAbout(ActionEvent event) {
-		LOG.info("show about alert");
-		new AboutAlert().showAndWait();
-		LOG.info("close about alert");
-	}
-
-	@FXML
 	protected void saveButtonClicked(ActionEvent event) {
 		fillData();
 		if (isInputValid()) {
 			LOG.info("Input successfully validated!");
 			bindDataToModel();
 			// bindMockupData();
-
-			try {
-				List<ValueHolder> content = new ArrayList<ValueHolder>();
-				for (Field field : model.getClass().getDeclaredFields()) {
-					field.setAccessible(true);
-					if (!Modifier.isPrivate(field.getModifiers())) {
-						continue;
-					}
-					String s1 = field.getName().substring(0, 1).toUpperCase();
-					String nameCapitalized = s1 + field.getName().substring(1);
-					content.add(new ValueHolder(nameCapitalized, String.valueOf(field.get(model))));
-				}
-
-				final ColumnPositionMappingStrategy<ValueHolder> strategy = new ColumnPositionMappingStrategy<>();
-				strategy.setType(ValueHolder.class);
-				strategy.setColumnMapping("key", "value");
-
-				LOG.info("Start generating csv file...");
-				FileWriter writer = new FileWriter("./settings.csv");
-				StatefulBeanToCsvBuilder<ValueHolder> csvBuilder = new StatefulBeanToCsvBuilder<>(writer);
-				StatefulBeanToCsv<ValueHolder> beanWriter = csvBuilder.withSeparator(';')
-						.withLineEnd(";" + System.lineSeparator()).withMappingStrategy(strategy).build();
-				beanWriter.write(content);
-				writer.close();
-				LOG.info("Generated csv file.");
-				startExperiment();
-			} catch (CsvBadConverterException | SecurityException | IllegalArgumentException | IllegalAccessException
-					| CsvDataTypeMismatchException | CsvRequiredFieldEmptyException | IOException e) {
-				LOG.error("Cannot generate csv file: " + e.getMessage());
-				e.printStackTrace();
-			}
+			writeToCsv();
+			
+			startExperiment();
 		}
 	}
 
-	protected void startExperiment() throws IOException {
-		BorderPane experimentPane = FXMLLoader.load(getClass().getResource(Constants.SCREEN_EXPERIMENT));
-		BorderPane root = MainWindow.getRoot();
-		root.setCenter(experimentPane);
+	private void startExperiment() {
+		BorderPane experimentPane;
+		try {
+			experimentPane = FXMLLoader.load(getClass().getResource(Constants.SCREEN_EXPERIMENT));
+			BorderPane root = MainWindow.getRoot();
+			root.setCenter(experimentPane);
+		} catch (IOException e) {
+			LOG.error("Cannot load experiment screen " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	private void writeToCsv() {
+		try {
+			List<ValueHolder> content = new ArrayList<ValueHolder>();
+			for (Field field : model.getClass().getDeclaredFields()) {
+				field.setAccessible(true);
+				if (!Modifier.isPrivate(field.getModifiers())) {
+					continue;
+				}
+				String s1 = field.getName().substring(0, 1).toUpperCase();
+				String nameCapitalized = s1 + field.getName().substring(1);
+				content.add(new ValueHolder(nameCapitalized, String.valueOf(field.get(model))));
+			}
+
+			final ColumnPositionMappingStrategy<ValueHolder> strategy = new ColumnPositionMappingStrategy<>();
+			strategy.setType(ValueHolder.class);
+			strategy.setColumnMapping("key", "value");
+
+			LOG.info("Start generating csv file...");
+			FileWriter writer = new FileWriter("./settings.csv");
+			StatefulBeanToCsvBuilder<ValueHolder> csvBuilder = new StatefulBeanToCsvBuilder<>(writer);
+			StatefulBeanToCsv<ValueHolder> beanWriter = csvBuilder.withSeparator(';')
+					.withLineEnd(";" + System.lineSeparator()).withMappingStrategy(strategy).build();
+			beanWriter.write(content);
+			writer.close();
+			LOG.info("Generated csv file.");
+		} catch (CsvBadConverterException | SecurityException | IllegalArgumentException | IllegalAccessException
+				| CsvDataTypeMismatchException | CsvRequiredFieldEmptyException | IOException e) {
+			LOG.error("Cannot generate csv file: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	private void fillData() {

@@ -22,18 +22,31 @@ public class MainWindow extends Application {
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws IOException {
-		root = FXMLLoader.load(getClass().getResource(Constants.SCREEN_MAIN));
+	public void start(Stage primaryStage) {
+		LOG.info("Initializing main screen.");
+		try {
+			root = FXMLLoader.load(getClass().getResource(Constants.SCREEN_MAIN));
+		} catch (IOException e) {
+			LOG.error("Cannot load main screen " + e.getMessage());
+			e.printStackTrace();
+		}
 
 		// Initialize app with settings screen
-		BorderPane settings = FXMLLoader.load(getClass().getResource(Constants.SCREEN_SETTINGS));
-		root.setCenter(settings);
+		BorderPane settings = null;
+		try {
+			settings = FXMLLoader.load(getClass().getResource(Constants.SCREEN_SETTINGS));
+			root.setCenter(settings);
+		} catch (IOException e) {
+			LOG.error("Cannot load settings screen " + e.getMessage());
+			e.printStackTrace();
+		}
 
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add("/styles.css");
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		LOG.info("Initialized main screen.");
 
 	}
 	

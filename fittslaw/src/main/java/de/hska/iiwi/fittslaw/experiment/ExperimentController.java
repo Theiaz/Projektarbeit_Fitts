@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
-import de.hska.iiwi.fittslaw.ObservableResourcesSingleton;
+import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

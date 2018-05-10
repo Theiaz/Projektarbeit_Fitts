@@ -1,10 +1,11 @@
-package de.hska.iiwi.fittslaw;
+package de.hska.iiwi.fittslaw.experiment;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import de.hska.iiwi.fittslaw.Constants;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;

@@ -4,10 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.40"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="de.hska.iiwi.fittslaw.experiment.ExperimentController">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hska.iiwi.fittslaw.experiment.ExperimentController">
 	<center>
-		<Label fx:id="labelHello"/>
+		<Label fx:id="labelHello" text="Hallo English" />
 	</center>
 </BorderPane>

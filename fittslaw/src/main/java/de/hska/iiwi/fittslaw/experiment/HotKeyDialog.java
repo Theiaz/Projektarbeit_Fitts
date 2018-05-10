@@ -1,4 +1,4 @@
-package de.hska.iiwi.fittslaw;
+package de.hska.iiwi.fittslaw.experiment;
 
 import de.hska.iiwi.fittslaw.settings.SettingsModel;
 import javafx.event.Event;

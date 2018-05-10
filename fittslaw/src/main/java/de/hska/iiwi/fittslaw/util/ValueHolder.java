@@ -1,4 +1,4 @@
-package de.hska.iiwi.fittslaw;
+package de.hska.iiwi.fittslaw.util;
 
 public class ValueHolder {
     private String key;

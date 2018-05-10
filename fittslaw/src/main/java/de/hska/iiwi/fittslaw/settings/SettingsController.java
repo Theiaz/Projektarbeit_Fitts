@@ -77,6 +77,12 @@ public class SettingsController implements Initializable {
 	@FXML
 	private RadioButton radioWritingHandR;
 	@FXML
+	private Label labelMouseHand;
+	@FXML
+	private RadioButton radioMouseHandL;
+	@FXML
+	private RadioButton radioMouseHandR;
+	@FXML
 	private Label labelComment;
 	@FXML
 	private TextField textfieldComment;
@@ -191,6 +197,7 @@ public class SettingsController implements Initializable {
 		radioSexFemale.setSelected(true);
 		radioWritingDirectionLR.setSelected(true);
 		radioWritingHandL.setSelected(true);
+		radioMouseHandL.setSelected(true);
 		radioTypeFirst.setSelected(true);
 	}
 
@@ -214,6 +221,9 @@ public class SettingsController implements Initializable {
 		labelWritingHand.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelWritingHand"));
 		radioWritingHandL.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioWritingHandL"));
 		radioWritingHandR.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioWritingHandR"));
+		labelMouseHand.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelMouseHand"));
+		radioMouseHandL.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioWritingHandL"));
+		radioMouseHandR.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioWritingHandR"));
 		labelWriting10Finger.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelWriting10Finger"));
 		checkboxWriting10Finger.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("checkboxWriting10Finger"));
 		labelComment.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelComment"));
@@ -255,6 +265,12 @@ public class SettingsController implements Initializable {
 			model.setUserWritingHand(WritingHand.LEFT);
 		} else if (radioWritingHandR.isSelected()) {
 			model.setUserWritingHand(WritingHand.RIGHT);
+		}
+		
+		if (radioMouseHandL.isSelected()) {
+			model.setUserMouseHand(WritingHand.LEFT);
+		} else if (radioMouseHandR.isSelected()) {
+			model.setUserMouseHand(WritingHand.RIGHT);
 		}
 
 		model.setUserTenFingerSystem(checkboxWriting10Finger.isSelected());
@@ -298,6 +314,7 @@ public class SettingsController implements Initializable {
 		model.setUserGender(Gender.MALE);
 		model.setUserWritingDirection(WritingDirection.LEFTTORIGHT);
 		model.setUserWritingHand(WritingHand.RIGHT);
+		model.setUserMouseHand(WritingHand.RIGHT);
 		model.setUserTenFingerSystem(false);
 		model.setUserComment("Nice comment");
 
@@ -336,6 +353,8 @@ public class SettingsController implements Initializable {
 		radioWritingDirectionRL.getStyleClass().remove("error");
 		radioWritingHandL.getStyleClass().remove("error");
 		radioWritingHandR.getStyleClass().remove("error");
+		radioMouseHandL.getStyleClass().remove("error");
+		radioMouseHandR.getStyleClass().remove("error");
 
 		radioTypeFirst.getStyleClass().remove("error");
 		radioTypeSecond.getStyleClass().remove("error");
@@ -375,6 +394,12 @@ public class SettingsController implements Initializable {
 		if (!radioWritingHandL.isSelected() && !radioWritingHandR.isSelected()) {
 			radioWritingHandL.getStyleClass().add("error");
 			radioWritingHandR.getStyleClass().add("error");
+			b = false;
+		}
+		
+		if (!radioMouseHandL.isSelected() && !radioMouseHandR.isSelected()) {
+			radioMouseHandL.getStyleClass().add("error");
+			radioMouseHandR.getStyleClass().add("error");
 			b = false;
 		}
 

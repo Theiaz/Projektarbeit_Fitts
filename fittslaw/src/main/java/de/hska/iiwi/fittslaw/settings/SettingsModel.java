@@ -45,38 +45,41 @@ public class SettingsModel {
 
 	@CsvBindByPosition(position = 7, required = true)
 	private WritingHand userWritingHand;
-
+	
 	@CsvBindByPosition(position = 8, required = true)
+	private WritingHand userMouseHand;
+
+	@CsvBindByPosition(position = 9, required = true)
 	private WritingDirection userWritingDirection;
 
-	@CsvBindByPosition(position = 9)
+	@CsvBindByPosition(position = 10)
 	private boolean userTenFingerSystem;
 
-	@CsvBindByPosition(position = 10)
+	@CsvBindByPosition(position = 11)
 	private String userComment;
 
-	@CsvBindByPosition(position = 11, required = true)
+	@CsvBindByPosition(position = 12, required = true)
 	private ExperimentType experimentType;
 
-	@CsvBindByPosition(position = 12, required = true)
+	@CsvBindByPosition(position = 13, required = true)
 	private int experimentRounds;
 
-	@CsvBindByPosition(position = 13)
+	@CsvBindByPosition(position = 14)
 	private boolean experimentIcons;
 
-	@CsvBindByPosition(position = 14)
+	@CsvBindByPosition(position = 15)
 	private boolean experimentAborted;
 
-	@CsvBindByPosition(position = 15)
+	@CsvBindByPosition(position = 16)
 	private String version;
 
-	@CsvBindByPosition(position = 16, required = true)
+	@CsvBindByPosition(position = 17, required = true)
 	private String computerName;
 
-	@CsvBindByPosition(position = 17, required = true)
+	@CsvBindByPosition(position = 18, required = true)
 	private String operatingSystem;
 
-	@CsvBindByPosition(position = 18, required = true)
+	@CsvBindByPosition(position = 19, required = true)
 	private Date timestamp;
 
 	public boolean isDeviceMouse() {
@@ -149,6 +152,14 @@ public class SettingsModel {
 
 	public void setUserWritingHand(WritingHand userWritingHand) {
 		this.userWritingHand = userWritingHand;
+	}
+	
+	public WritingHand getUserMouseHand() {
+		return userMouseHand;
+	}
+
+	public void setUserMouseHand(WritingHand userMouseHand) {
+		this.userMouseHand = userMouseHand;
 	}
 
 	public WritingDirection getUserWritingDirection() {

@@ -1,50 +1,47 @@
 package de.hska.iiwi.fittslaw;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class MainWindow extends Application {
 
 	private static final Logger LOG = Logger.getRootLogger();
 
-	private static final ObservableResourcesSingleton OBSERVABLE_RESOURCES = ObservableResourcesSingleton.getInstance();
-
-	static {
-		OBSERVABLE_RESOURCES.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_EN));
-	}
+	// Creating a static root to pass to the controller
+	private static BorderPane root = new BorderPane();
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws IOException {
+		root = FXMLLoader.load(getClass().getResource(Constants.SCREEN_MAIN));
 
-		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		URL fxmlURL = classLoader.getResource("fxmls/myview.fxml");
-
-		FXMLLoader loader = new FXMLLoader(fxmlURL, OBSERVABLE_RESOURCES.getResources());
-		loader.setLocation(getClass().getResource(Constants.SCREEN_SETTINGS));
-		Parent root = null;
-		try {
-			root = loader.load();
-		} catch (Exception e) {
-			LOG.error("Unable to load FXML files: " + e.getMessage());
-			e.printStackTrace();
-		}
+		// Initialize app with settings screen
+		BorderPane settings = FXMLLoader.load(getClass().getResource(Constants.SCREEN_SETTINGS));
+		root.setCenter(settings);
 
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add("/styles.css");
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
+
+	}
+	
+	/**
+	 * Called by the controller to switch scenes
+	 * @return
+	 */
+	public static BorderPane getRoot() {
+		return root;
 	}
 }

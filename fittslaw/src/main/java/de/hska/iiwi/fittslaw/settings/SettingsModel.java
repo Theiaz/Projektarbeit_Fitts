@@ -1,4 +1,4 @@
-package de.hska.iiwi.fittslaw;
+package de.hska.iiwi.fittslaw.settings;
 
 import java.util.Date;
 

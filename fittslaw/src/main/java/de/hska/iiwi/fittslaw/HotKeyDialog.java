@@ -1,5 +1,6 @@
 package de.hska.iiwi.fittslaw;
 
+import de.hska.iiwi.fittslaw.settings.SettingsModel;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;

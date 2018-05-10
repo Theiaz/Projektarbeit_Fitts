@@ -1,4 +1,4 @@
-package de.hska.iiwi.fittslaw;
+package de.hska.iiwi.fittslaw.settings;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,31 +21,32 @@ import com.opencsv.exceptions.CsvBadConverterException;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
-import de.hska.iiwi.fittslaw.SettingsModel.ExperimentType;
-import de.hska.iiwi.fittslaw.SettingsModel.Gender;
-import de.hska.iiwi.fittslaw.SettingsModel.WritingDirection;
-import de.hska.iiwi.fittslaw.SettingsModel.WritingHand;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import de.hska.iiwi.fittslaw.AboutAlert;
+import de.hska.iiwi.fittslaw.Constants;
+import de.hska.iiwi.fittslaw.MainWindow;
+import de.hska.iiwi.fittslaw.ObservableResourcesSingleton;
+import de.hska.iiwi.fittslaw.ValueHolder;
+import de.hska.iiwi.fittslaw.settings.SettingsModel.ExperimentType;
+import de.hska.iiwi.fittslaw.settings.SettingsModel.Gender;
+import de.hska.iiwi.fittslaw.settings.SettingsModel.WritingDirection;
+import de.hska.iiwi.fittslaw.settings.SettingsModel.WritingHand;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 public class SettingsController implements Initializable {
 
 	private static final Logger LOG = Logger.getRootLogger();
-	
+
 	private static final ObservableResourcesSingleton OBSERVABLE_RESOURCES = ObservableResourcesSingleton.getInstance();
 
 	private final SettingsModel model = new SettingsModel();
@@ -120,49 +121,10 @@ public class SettingsController implements Initializable {
 	private Button buttonStart;
 	@FXML
 	private Label labelType;
-	@FXML
-	private Menu menuFile;
-	@FXML
-	private Menu menuLanguage;
-	@FXML
-	private Menu menuHelp;
-	@FXML
-	private MenuItem menuItemClose;
-	@FXML
-	private RadioMenuItem menuItemEnglish;
-	@FXML
-	private RadioMenuItem menuItemGerman;
-	@FXML
-	private MenuItem menuItemAbout;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		OBSERVABLE_RESOURCES.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_EN));
 		bindI18NText();
-
-		menuItemEnglish.setSelected(true);
-
-		menuItemEnglish.selectedProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected,
-					Boolean isNowSelected) {
-				if (isNowSelected) {
-					LOG.info("Selected english language");
-					OBSERVABLE_RESOURCES.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_EN));
-				}
-			}
-		});
-
-		menuItemGerman.selectedProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> obs, Boolean wasPreviouslySelected,
-					Boolean isNowSelected) {
-				if (isNowSelected) {
-					LOG.info("Selected german language");
-					OBSERVABLE_RESOURCES.setResources(ResourceBundle.getBundle(Constants.I18N_SETTINGS_DE));
-				}
-			}
-		});
 	}
 
 	@FXML
@@ -171,10 +133,10 @@ public class SettingsController implements Initializable {
 		new AboutAlert().showAndWait();
 		LOG.info("close about alert");
 	}
-	
+
 	@FXML
 	protected void saveButtonClicked(ActionEvent event) {
-//		 fillData();
+		fillData();
 		if (isInputValid()) {
 			LOG.info("Input successfully validated!");
 			bindDataToModel();
@@ -212,35 +174,13 @@ public class SettingsController implements Initializable {
 			}
 		}
 	}
-	
-	protected void startExperiment() {
-		LOG.info("hide settings input");
-		parentHBox.setVisible(false);
-		buttonStart.setVisible(false);
-		
-		LOG.info("start experiment");
-		long[] speed = new long[model.getExperimentRounds()];
-		for (int round = 0; round < model.getExperimentRounds(); round++) {
-			HotKey hotKey = HotKey.getRandom();
-			LOG.info("round " + round + ": " + hotKey.getSimpleName());
-			long startTime = System.currentTimeMillis();
-			new HotKeyDialog(hotKey, model).showAndWait();
-			long endTime = System.currentTimeMillis();
-			speed[round] = endTime - startTime;
-		}
-		
-		LOG.info("end experiment");
-		
-		// TODO save to file
-		
-		new EndExperimentAlert().showAndWait();
-		
-		LOG.info("show settings input");
-		parentHBox.setVisible(true);
-		buttonStart.setVisible(true);
 
+	protected void startExperiment() throws IOException {
+		BorderPane experimentPane = FXMLLoader.load(getClass().getResource(Constants.SCREEN_EXPERIMENT));
+		BorderPane root = MainWindow.getRoot();
+		root.setCenter(experimentPane);
 	}
-	
+
 	private void fillData() {
 		radioInputDeviceMouse.setSelected(true);
 		textfieldName.setText("abc");
@@ -251,24 +191,15 @@ public class SettingsController implements Initializable {
 		radioWritingHandL.setSelected(true);
 		radioTypeFirst.setSelected(true);
 	}
-	
+
 	private void bindI18NText() {
-		//menu
-		menuFile.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuFile"));
-		menuItemClose.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuItemClose"));
-		menuLanguage.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuLanguage"));
-		menuItemEnglish.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuItemEnglish"));
-		menuItemGerman.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuItemGerman"));
-		menuHelp.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuHelp"));
-		menuItemAbout.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuItemAbout"));
-		
 		captionInputDevice.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("captionInputDevice"));
 		labelInputDevice.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelInputDevice"));
 		radioInputDeviceMouse.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioInputDeviceMouse"));
 		radioInputDeviceTouch.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioInputDeviceTouch"));
 		radioInputDevicePen.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioInputDevicePen"));
 		labelDeviceType.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelDeviceType"));
-		
+
 		captionExperimentee.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("captionExperimentee"));
 		labelName.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelName"));
 		labelAge.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelAge"));
@@ -284,7 +215,7 @@ public class SettingsController implements Initializable {
 		labelWriting10Finger.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelWriting10Finger"));
 		checkboxWriting10Finger.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("checkboxWriting10Finger"));
 		labelComment.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelComment"));
-		
+
 		captionAttempts.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("captionAttempts"));
 		labelType.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelType"));
 		radioTypeFirst.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioTypeFirst"));
@@ -292,7 +223,7 @@ public class SettingsController implements Initializable {
 		labelRounds.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelRounds"));
 		labelIcons.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelIcons"));
 		checkboxIcons.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("checkboxIcons"));
-		
+
 		buttonStart.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("buttonStart"));
 	}
 

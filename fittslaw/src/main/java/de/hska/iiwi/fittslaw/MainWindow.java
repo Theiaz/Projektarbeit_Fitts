@@ -50,6 +50,7 @@ public class MainWindow extends Application {
 
 		primaryStage.setScene(scene);
 		primaryStage.getIcons().add(new Image(Constants.LOGO));
+		primaryStage.setTitle(Constants.TITLE);
 		primaryStage.show();
 		stage = primaryStage;
 		LOG.info("Initialized main screen.");

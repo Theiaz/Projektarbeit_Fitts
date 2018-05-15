@@ -15,6 +15,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 public class MainController implements Initializable {
@@ -70,7 +72,19 @@ public class MainController implements Initializable {
 			}
 		});
 		
-		menuItemAbout.setOnAction(e -> new AboutAlert().showAndWait());
+		menuItemAbout.setOnAction(e -> {
+			LOG.info("showing about alert");
+			new AboutAlert().showAndWait();
+		});
+		
+		ImageView ienus = new ImageView(new Image(Constants.ICON_EN_UK));
+		ienus.setFitWidth(16.0);
+		ienus.setFitHeight(16.0);
+		menuItemEnglish.setGraphic(ienus);
+		ImageView idede = new ImageView(new Image(Constants.ICON_DE_DE));
+		idede.setFitWidth(16.0);
+		idede.setFitHeight(16.0);
+		menuItemGerman.setGraphic(idede);
 	}
 	
 	private void bindI18NText() {

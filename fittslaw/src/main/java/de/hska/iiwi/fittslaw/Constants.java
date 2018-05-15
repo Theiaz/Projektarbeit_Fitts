@@ -26,6 +26,10 @@ public class Constants {
 	public static final String ICON_PASTE = "/icons/paste.png";
 	public static final String ICON_PRINT = "/icons/print.png";
 	public static final String ICON_SAVE = "/icons/save.png";
+	
+	public static final String ICON_EN_US = "/icons/i18n/en_US.png";
+	public static final String ICON_EN_UK = "/icons/i18n/en_UK.png";
+	public static final String ICON_DE_DE = "/icons/i18n/de_DE.png";
 
 	public static final String LOGO = "/logo.png";
 

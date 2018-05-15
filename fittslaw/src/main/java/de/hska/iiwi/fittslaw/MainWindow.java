@@ -16,6 +16,8 @@ public class MainWindow extends Application {
 
 	// Creating a static root to pass to the controller
 	private static BorderPane root = new BorderPane();
+	
+	private static Stage stage;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -46,6 +48,7 @@ public class MainWindow extends Application {
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		stage = primaryStage;
 		LOG.info("Initialized main screen.");
 
 	}
@@ -56,5 +59,9 @@ public class MainWindow extends Application {
 	 */
 	public static BorderPane getRoot() {
 		return root;
+	}
+	
+	public static Stage getStage() {
+		return stage;
 	}
 }

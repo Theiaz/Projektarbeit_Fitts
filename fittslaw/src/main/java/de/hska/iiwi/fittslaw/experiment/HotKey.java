@@ -47,7 +47,7 @@ public enum HotKey {
 		return keyCombination;
 	}
 
-	private static final List<HotKey> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
+	public static final List<HotKey> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
 
 	private static final int SIZE = VALUES.size();
 

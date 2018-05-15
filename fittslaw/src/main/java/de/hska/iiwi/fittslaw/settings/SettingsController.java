@@ -48,7 +48,7 @@ public class SettingsController implements Initializable {
 
 	private static final ObservableResourcesSingleton OBSERVABLE_RESOURCES = ObservableResourcesSingleton.getInstance();
 
-	private final SettingsModel model = new SettingsModel();
+	private static final SettingsModel model = new SettingsModel();
 
 	@FXML
 	private HBox parentHBox;
@@ -415,6 +415,10 @@ public class SettingsController implements Initializable {
 		}
 
 		return b;
+	}
+	
+	public static SettingsModel getModel() {
+		return model;
 	}
 
 }

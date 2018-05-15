@@ -21,17 +21,17 @@ public class Constants {
 	public static final String I18N_MAIN_EN = "i18n.MainI18N_en_US";
 	public static final String I18N_MAIN_DE = "i18n.MainI18N_de_DE";
 
-	public static final String ICON_COPY = "/icons/copy.png";
-	public static final String ICON_CUT = "/icons/cut.png";
-	public static final String ICON_PASTE = "/icons/paste.png";
-	public static final String ICON_PRINT = "/icons/print.png";
-	public static final String ICON_SAVE = "/icons/save.png";
+	public static final String ICON_COPY = "/icons/hotkeys/copy.png";
+	public static final String ICON_CUT = "/icons/hotkeys/cut.png";
+	public static final String ICON_PASTE = "/icons/hotkeys/paste.png";
+	public static final String ICON_PRINT = "/icons/hotkeys/print.png";
+	public static final String ICON_SAVE = "/icons/hotkeys/save.png";
 	
 	public static final String ICON_EN_US = "/icons/i18n/en_US.png";
 	public static final String ICON_EN_UK = "/icons/i18n/en_UK.png";
 	public static final String ICON_DE_DE = "/icons/i18n/de_DE.png";
 
-	public static final String LOGO = "/logo.png";
+	public static final String LOGO = "/icons/logo.png";
 
 	// TODO find better name maybe
 	public static final String OUTPUT = "./" + Long.toString(System.currentTimeMillis()) + ".csv";

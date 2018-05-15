@@ -49,6 +49,20 @@ public class ExperimentController implements Initializable {
 		bindI18NText();
 		command.setVisible(!SettingsController.getModel().isExperimentIcons());
 		icon.setVisible(SettingsController.getModel().isExperimentIcons());
+
+		try {
+			FileWriter writer = new FileWriter(Constants.OUTPUT, true);
+			writer.append('\n');
+			writer.append("expected;");
+			writer.append("pressed;");
+			writer.append("time;");
+			writer.append('\n');
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			LOG.error("can't write file " + Constants.OUTPUT + " : " + e.getMessage());
+			e.printStackTrace();
+		}
 		
 		eventHandler = new EventHandler<Event>() {
 			@Override

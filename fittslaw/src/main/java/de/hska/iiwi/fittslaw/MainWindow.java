@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -47,6 +49,7 @@ public class MainWindow extends Application {
 		scene.getStylesheets().add("/styles.css");
 
 		primaryStage.setScene(scene);
+		primaryStage.getIcons().add(new Image(Constants.LOGO));
 		primaryStage.show();
 		stage = primaryStage;
 		LOG.info("Initialized main screen.");

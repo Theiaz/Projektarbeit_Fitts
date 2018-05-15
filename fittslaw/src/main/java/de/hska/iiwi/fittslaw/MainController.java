@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
+import de.hska.iiwi.fittslaw.util.AboutAlert;
 import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -68,6 +69,8 @@ public class MainController implements Initializable {
 				}
 			}
 		});
+		
+		menuItemAbout.setOnAction(e -> new AboutAlert().showAndWait());
 	}
 	
 	private void bindI18NText() {

@@ -175,7 +175,7 @@ public class SettingsController implements Initializable {
 			strategy.setColumnMapping("key", "value");
 
 			LOG.info("Start generating csv file...");
-			FileWriter writer = new FileWriter("./settings.csv");
+			FileWriter writer = new FileWriter(Constants.OUTPUT);
 			StatefulBeanToCsvBuilder<ValueHolder> csvBuilder = new StatefulBeanToCsvBuilder<>(writer);
 			StatefulBeanToCsv<ValueHolder> beanWriter = csvBuilder.withSeparator(';')
 					.withLineEnd(";" + System.lineSeparator()).withMappingStrategy(strategy).build();

@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
+import de.hska.iiwi.fittslaw.Constants;
 import de.hska.iiwi.fittslaw.MainWindow;
 import de.hska.iiwi.fittslaw.settings.SettingsController;
 import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
@@ -64,7 +65,7 @@ public class ExperimentController implements Initializable {
 				if (pressed != null) {
 					LOG.info("hotkey " + pressed.getSimpleName() + " pressed");
 					try {
-						FileWriter writer = new FileWriter("./settings.csv", true);
+						FileWriter writer = new FileWriter(Constants.OUTPUT, true);
 						writer.append(hotKey.getSimpleName() + ";");
 						writer.append(pressed.getSimpleName() + ";");
 						writer.append(System.currentTimeMillis() - time + ";");

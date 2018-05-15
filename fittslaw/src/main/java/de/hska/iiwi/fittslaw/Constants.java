@@ -14,5 +14,8 @@ public class Constants {
 	public static final String ICON_PASTE = "/icons/paste.png";
 	public static final String ICON_PRINT = "/icons/print.png";
 	public static final String ICON_SAVE = "/icons/save.png";
+	
+	// TODO find better name maybe
+	public static final String OUTPUT = "./" + Long.toString(System.currentTimeMillis()) + ".csv";
 
 }

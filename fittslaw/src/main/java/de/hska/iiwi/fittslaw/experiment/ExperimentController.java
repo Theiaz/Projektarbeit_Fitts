@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import de.hska.iiwi.fittslaw.Constants;
 import de.hska.iiwi.fittslaw.MainWindow;
+import de.hska.iiwi.fittslaw.alerts.EndAlert;
 import de.hska.iiwi.fittslaw.settings.SettingsController;
 import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
 import javafx.event.Event;
@@ -124,8 +125,12 @@ public class ExperimentController implements Initializable {
 
 	@SuppressWarnings("unchecked")
 	private void end() {
+		LOG.info("end of experiment");
 		MainWindow.getStage().removeEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
-		new Alert(AlertType.INFORMATION).showAndWait();
+		LOG.info("showing end alert");
+		new EndAlert().showAndWait();
+		
+		// TODO what now?
 	}
 
 }

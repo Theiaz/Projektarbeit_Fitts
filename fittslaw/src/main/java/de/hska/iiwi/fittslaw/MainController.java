@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
-import de.hska.iiwi.fittslaw.util.AboutAlert;
+import de.hska.iiwi.fittslaw.alerts.AboutAlert;
 import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

@@ -1,6 +1,7 @@
-package de.hska.iiwi.fittslaw.util;
+package de.hska.iiwi.fittslaw.alerts;
 
 import de.hska.iiwi.fittslaw.Constants;
+import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

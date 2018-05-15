@@ -290,7 +290,7 @@ public class SettingsController implements Initializable {
 		model.setExperimentAborted(false); // TODO
 
 		// others
-		model.setVersion("1.0.0"); // TODO
+		model.setVersion(SettingsController.class.getPackage().getImplementationVersion());
 		try {
 			model.setComputerName(InetAddress.getLocalHost().getHostName());
 		} catch (UnknownHostException e) {

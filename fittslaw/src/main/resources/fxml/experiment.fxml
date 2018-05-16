@@ -8,7 +8,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hska.iiwi.fittslaw.experiment.ExperimentController">
    <center>
-      <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
+      <VBox fx:id="container" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
          <children>
       		<Label fx:id="command" text="command label">
                <font>

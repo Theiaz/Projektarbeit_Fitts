@@ -25,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 public class ExperimentController implements Initializable {
 
@@ -37,6 +38,9 @@ public class ExperimentController implements Initializable {
 
 	@FXML
 	private ImageView icon;
+
+	@FXML
+	private VBox container;
 
 	private HotKey hotKey;
 
@@ -51,6 +55,18 @@ public class ExperimentController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		bindI18NText();
+		switch (SettingsController.getModel().getExperimentType()) {
+			case TEXT :
+				container.getChildren().remove(icon);
+				break;
+			case ICON :
+				container.getChildren().remove(command);
+				break;
+			default :
+				String message = "unknown enum " + SettingsController.getModel().getExperimentType().toString();
+				LOG.error(message);
+				throw new InternalError(message);
+		}
 		command.setVisible(SettingsController.getModel().getExperimentType().equals(ExperimentType.TEXT));
 		icon.setVisible(SettingsController.getModel().getExperimentType().equals(ExperimentType.ICON));
 		String filename = FileNameCreator.getFileName(SettingsController.getModel().getTimestamp());
@@ -68,7 +84,7 @@ public class ExperimentController implements Initializable {
 			LOG.error("can't write file " + filename + " : " + e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 		eventHandler = new EventHandler<Event>() {
 			@Override
 			public void handle(Event event) {
@@ -97,7 +113,7 @@ public class ExperimentController implements Initializable {
 					}
 
 					time = System.currentTimeMillis();
-					
+
 					if (pressed.equals(hotKey)) {
 						next();
 					}

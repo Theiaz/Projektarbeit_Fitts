@@ -161,6 +161,7 @@ public class ExperimentController implements Initializable {
 				e.printStackTrace();
 			}
 		} else if (result.get() == ButtonType.CANCEL) {
+			LOG.info("closing apllication");
 			System.exit(0);
 		} else {
 			String message = "unkown ButtonType";

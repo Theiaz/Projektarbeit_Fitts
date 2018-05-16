@@ -164,7 +164,7 @@ public class ExperimentController implements Initializable {
 			LOG.info("closing apllication");
 			System.exit(0);
 		} else {
-			String message = "unkown ButtonType";
+			String message = "unkown ButtonType " + result.get().toString();
 			LOG.error("message");
 			throw new InternalError(message);
 		}

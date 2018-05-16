@@ -3,6 +3,7 @@ package de.hska.iiwi.fittslaw.experiment;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
@@ -17,6 +18,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -127,9 +129,16 @@ public class ExperimentController implements Initializable {
 		MainWindow.getStage().removeEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
 		SettingsController.getModel().setExperimentAborted(false);
 		LOG.info("showing end alert");
-		new EndAlert().showAndWait();
-		
-		// TODO what now?
+		Optional<ButtonType> result = new EndAlert().showAndWait();
+		if (result.get() == ButtonType.OK) {
+			// TODO start new experiment
+		} else if (result.get() == ButtonType.CANCEL) {
+			System.exit(0);
+		} else {
+			String message = "unkown ButtonType";
+			LOG.error("message");
+			throw new InternalError(message);
+		}
 	}
 
 }

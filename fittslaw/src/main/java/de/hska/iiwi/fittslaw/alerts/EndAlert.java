@@ -11,10 +11,11 @@ public class EndAlert extends Alert {
 	private static final ObservableResourcesSingleton OBSERVABLE_RESOURCES = ObservableResourcesSingleton.getInstance();
 
 	public EndAlert() {
-		super(AlertType.INFORMATION);
+		super(AlertType.CONFIRMATION);
 		Stage stage = (Stage) getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(Constants.LOGO));
 		setHeaderText(OBSERVABLE_RESOURCES.getStringBinding("end").get());
+		setContentText(OBSERVABLE_RESOURCES.getStringBinding("restartquestion").get());
 	}
 
 }

@@ -163,6 +163,11 @@ public class SettingsController implements Initializable {
 				}
 				String s1 = field.getName().substring(0, 1).toUpperCase();
 				String nameCapitalized = s1 + field.getName().substring(1);
+				// Skip ExperimentAborted field (not necessary inside csv)
+				if (nameCapitalized.contains("ExperimentAborted"))
+				{
+					break;
+				}
 				content.add(new ValueHolder(nameCapitalized, String.valueOf(field.get(model))));
 			}
 
@@ -277,7 +282,7 @@ public class SettingsController implements Initializable {
 		}
 
 		model.setExperimentRounds(Integer.parseInt(textfieldRounds.getText()));
-		model.setExperimentAborted(false); // TODO
+		model.setExperimentAborted(true);
 
 		// others
 		model.setVersion(Constants.VERSION);
@@ -311,7 +316,7 @@ public class SettingsController implements Initializable {
 		// experiment
 		model.setExperimentType(ExperimentType.TEXT);
 		model.setExperimentRounds(100);
-		model.setExperimentAborted(false);
+		model.setExperimentAborted(true);
 
 		// others
 		model.setVersion("1.0.0");

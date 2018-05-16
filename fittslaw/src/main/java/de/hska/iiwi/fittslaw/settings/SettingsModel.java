@@ -64,19 +64,19 @@ public class SettingsModel {
 	@CsvBindByPosition(position = 13, required = true)
 	private int experimentRounds;
 
-	@CsvBindByPosition(position = 14)
+//	@CsvBindByPosition(position = 14)
 	private boolean experimentAborted;
 
-	@CsvBindByPosition(position = 15)
+	@CsvBindByPosition(position = 14)
 	private String version;
 
-	@CsvBindByPosition(position = 16, required = true)
+	@CsvBindByPosition(position = 15, required = true)
 	private String computerName;
 
-	@CsvBindByPosition(position = 17, required = true)
+	@CsvBindByPosition(position = 16, required = true)
 	private String operatingSystem;
 
-	@CsvBindByPosition(position = 18, required = true)
+	@CsvBindByPosition(position = 17, required = true)
 	private Date timestamp;
 
 	public boolean isDeviceMouse() {

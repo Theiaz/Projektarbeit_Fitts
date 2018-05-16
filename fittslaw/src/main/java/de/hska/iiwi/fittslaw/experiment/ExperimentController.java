@@ -125,6 +125,7 @@ public class ExperimentController implements Initializable {
 	private void end() {
 		LOG.info("end of experiment");
 		MainWindow.getStage().removeEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
+		SettingsController.getModel().setExperimentAborted(false);
 		LOG.info("showing end alert");
 		new EndAlert().showAndWait();
 		

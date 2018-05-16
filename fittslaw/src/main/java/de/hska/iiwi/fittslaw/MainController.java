@@ -1,11 +1,15 @@
 package de.hska.iiwi.fittslaw;
 
+import java.io.File;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
 import de.hska.iiwi.fittslaw.alerts.AboutAlert;
+import de.hska.iiwi.fittslaw.settings.SettingsController;
 import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -96,5 +100,20 @@ public class MainController implements Initializable {
 		menuItemGerman.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuItemGerman"));
 		menuHelp.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuHelp"));
 		menuItemAbout.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("menuItemAbout"));
+	}
+	
+	@FXML
+	protected void onCloseItemClicked()
+	{
+		LOG.info("Closing application...");
+		
+		// Delete if not yet finished
+		if (SettingsController.getModel().isExperimentAborted()) {
+			File file = new File(Constants.OUTPUT);
+			file.delete();
+			LOG.info("Deleted outputfile.");
+		}
+		
+		System.exit(0);
 	}
 }

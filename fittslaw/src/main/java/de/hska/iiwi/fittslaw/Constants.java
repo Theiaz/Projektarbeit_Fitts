@@ -34,6 +34,6 @@ public class Constants {
 	public static final String LOGO = "/icons/logo.png";
 
 	// TODO find better name maybe
-	public static final String OUTPUT = "./" + Long.toString(System.currentTimeMillis()) + ".csv";
+	public static final String OUTPUT = "./" + TITLE + Long.toString(System.currentTimeMillis()) + ".csv";
 
 }

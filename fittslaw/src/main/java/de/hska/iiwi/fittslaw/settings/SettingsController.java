@@ -119,10 +119,6 @@ public class SettingsController implements Initializable {
 	@FXML
 	private Label labelRounds;
 	@FXML
-	private CheckBox checkboxIcons;
-	@FXML
-	private Label labelIcons;
-	@FXML
 	private Button buttonStart;
 	@FXML
 	private Label labelType;
@@ -198,7 +194,6 @@ public class SettingsController implements Initializable {
 		radioWritingDirectionLR.setSelected(true);
 		radioWritingHandL.setSelected(true);
 		radioMouseHandL.setSelected(true);
-		radioTypeFirst.setSelected(true);
 	}
 
 	private void bindI18NText() {
@@ -233,8 +228,6 @@ public class SettingsController implements Initializable {
 		radioTypeFirst.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioTypeFirst"));
 		radioTypeSecond.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("radioTypeSecond"));
 		labelRounds.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelRounds"));
-		labelIcons.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("labelIcons"));
-		checkboxIcons.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("checkboxIcons"));
 
 		buttonStart.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding("buttonStart"));
 	}
@@ -278,15 +271,12 @@ public class SettingsController implements Initializable {
 
 		// experiment
 		if (radioTypeFirst.isSelected()) {
-			model.setExperimentType(ExperimentType.Type1);
+			model.setExperimentType(ExperimentType.TEXT);
 		} else if (radioTypeSecond.isSelected()) {
-			model.setExperimentType(ExperimentType.Type2);
+			model.setExperimentType(ExperimentType.ICON);
 		}
 
-		model.setExperimentType(ExperimentType.Type1);
-
 		model.setExperimentRounds(Integer.parseInt(textfieldRounds.getText()));
-		model.setExperimentIcons(checkboxIcons.isSelected());
 		model.setExperimentAborted(false); // TODO
 
 		// others
@@ -319,9 +309,8 @@ public class SettingsController implements Initializable {
 		model.setUserComment("Nice comment");
 
 		// experiment
-		model.setExperimentType(ExperimentType.Type1);
+		model.setExperimentType(ExperimentType.TEXT);
 		model.setExperimentRounds(100);
-		model.setExperimentIcons(false);
 		model.setExperimentAborted(false);
 
 		// others

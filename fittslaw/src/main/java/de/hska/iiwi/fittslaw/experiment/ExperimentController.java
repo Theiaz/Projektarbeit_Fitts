@@ -11,6 +11,7 @@ import de.hska.iiwi.fittslaw.Constants;
 import de.hska.iiwi.fittslaw.MainWindow;
 import de.hska.iiwi.fittslaw.alerts.EndAlert;
 import de.hska.iiwi.fittslaw.settings.SettingsController;
+import de.hska.iiwi.fittslaw.settings.SettingsModel.ExperimentType;
 import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -45,15 +46,15 @@ public class ExperimentController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		bindI18NText();
-		command.setVisible(!SettingsController.getModel().isExperimentIcons());
-		icon.setVisible(SettingsController.getModel().isExperimentIcons());
+		command.setVisible(SettingsController.getModel().getExperimentType().equals(ExperimentType.TEXT));
+		icon.setVisible(SettingsController.getModel().getExperimentType().equals(ExperimentType.ICON));
 
 		try {
 			FileWriter writer = new FileWriter(Constants.OUTPUT, true);
 			writer.append('\n');
-			writer.append("expected;");
-			writer.append("pressed;");
-			writer.append("time;");
+			writer.append("Expected Key;");
+			writer.append("Pressed Key;");
+			writer.append("Time in ms;");
 			writer.append('\n');
 			writer.flush();
 			writer.close();

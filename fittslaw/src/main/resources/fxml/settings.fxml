@@ -128,8 +128,6 @@
 								<Insets />
 							</GridPane.margin>
 						</Label>
-						<CheckBox fx:id="checkboxIcons" mnemonicParsing="false" text="Used" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-						<Label fx:id="labelIcons" text="Icons:" GridPane.rowIndex="6" />
 						<Label fx:id="labelType" text="Type:" GridPane.rowIndex="1" />
 					</children>
 					<columnConstraints>

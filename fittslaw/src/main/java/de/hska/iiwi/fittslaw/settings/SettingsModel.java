@@ -19,7 +19,7 @@ public class SettingsModel {
 	}
 
 	public enum ExperimentType {
-		Type1, Type2
+		TEXT, ICON
 	}
 
 	@CsvBindByPosition(position = 0, required = true)
@@ -65,21 +65,18 @@ public class SettingsModel {
 	private int experimentRounds;
 
 	@CsvBindByPosition(position = 14)
-	private boolean experimentIcons;
-
-	@CsvBindByPosition(position = 15)
 	private boolean experimentAborted;
 
-	@CsvBindByPosition(position = 16)
+	@CsvBindByPosition(position = 15)
 	private String version;
 
-	@CsvBindByPosition(position = 17, required = true)
+	@CsvBindByPosition(position = 16, required = true)
 	private String computerName;
 
-	@CsvBindByPosition(position = 18, required = true)
+	@CsvBindByPosition(position = 17, required = true)
 	private String operatingSystem;
 
-	@CsvBindByPosition(position = 19, required = true)
+	@CsvBindByPosition(position = 18, required = true)
 	private Date timestamp;
 
 	public boolean isDeviceMouse() {
@@ -200,14 +197,6 @@ public class SettingsModel {
 
 	public void setExperimentRounds(int experimentRounds) {
 		this.experimentRounds = experimentRounds;
-	}
-
-	public boolean isExperimentIcons() {
-		return experimentIcons;
-	}
-
-	public void setExperimentIcons(boolean experimentIcons) {
-		this.experimentIcons = experimentIcons;
 	}
 
 	public boolean isExperimentAborted() {

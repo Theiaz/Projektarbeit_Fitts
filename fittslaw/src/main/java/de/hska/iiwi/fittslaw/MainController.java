@@ -103,8 +103,11 @@ public class MainController implements Initializable {
 	}
 	
 	@FXML
-	protected void onCloseItemClicked()
-	{
+	protected void onCloseItemClicked() {
+		abort();
+	}
+	
+	public static void abort() {
 		LOG.info("Closing application...");
 		
 		// Delete if not yet finished

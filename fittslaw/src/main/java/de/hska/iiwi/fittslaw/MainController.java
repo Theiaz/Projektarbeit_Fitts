@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import de.hska.iiwi.fittslaw.alerts.AboutAlert;
 import de.hska.iiwi.fittslaw.settings.SettingsController;
+import de.hska.iiwi.fittslaw.util.FileNameCreator;
 import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -110,7 +111,7 @@ public class MainController implements Initializable {
 		
 		// Delete if not yet finished
 		if (SettingsController.getModel().isExperimentAborted()) {
-			File file = new File(Constants.OUTPUT);
+			File file = new File(FileNameCreator.getFileName(SettingsController.getModel().getTimestamp()));
 			file.delete();
 			LOG.info("Deleted outputfile.");
 		}

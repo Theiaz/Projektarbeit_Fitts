@@ -27,6 +27,7 @@ import de.hska.iiwi.fittslaw.settings.SettingsModel.ExperimentType;
 import de.hska.iiwi.fittslaw.settings.SettingsModel.Gender;
 import de.hska.iiwi.fittslaw.settings.SettingsModel.WritingDirection;
 import de.hska.iiwi.fittslaw.settings.SettingsModel.WritingHand;
+import de.hska.iiwi.fittslaw.util.FileNameCreator;
 import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
 import de.hska.iiwi.fittslaw.util.ValueHolder;
 import javafx.event.ActionEvent;
@@ -177,7 +178,7 @@ public class SettingsController implements Initializable {
 			strategy.setColumnMapping("key", "value");
 
 			LOG.info("Start generating csv file...");
-			FileWriter writer = new FileWriter(Constants.OUTPUT);
+			FileWriter writer = new FileWriter(FileNameCreator.getFileName(model.getTimestamp()));
 			StatefulBeanToCsvBuilder<ValueHolder> csvBuilder = new StatefulBeanToCsvBuilder<>(writer);
 			StatefulBeanToCsv<ValueHolder> beanWriter = csvBuilder.withSeparator(';')
 					.withLineEnd(";" + System.lineSeparator()).withMappingStrategy(strategy).build();

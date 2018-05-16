@@ -13,15 +13,18 @@ import de.hska.iiwi.fittslaw.MainWindow;
 import de.hska.iiwi.fittslaw.alerts.EndAlert;
 import de.hska.iiwi.fittslaw.settings.SettingsController;
 import de.hska.iiwi.fittslaw.settings.SettingsModel.ExperimentType;
+import de.hska.iiwi.fittslaw.util.FileNameCreator;
 import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 
 public class ExperimentController implements Initializable {
 
@@ -50,9 +53,10 @@ public class ExperimentController implements Initializable {
 		bindI18NText();
 		command.setVisible(SettingsController.getModel().getExperimentType().equals(ExperimentType.TEXT));
 		icon.setVisible(SettingsController.getModel().getExperimentType().equals(ExperimentType.ICON));
+		String filename = FileNameCreator.getFileName(SettingsController.getModel().getTimestamp());
 
 		try {
-			FileWriter writer = new FileWriter(Constants.OUTPUT, true);
+			FileWriter writer = new FileWriter(filename, true);
 			writer.append('\n');
 			writer.append("Expected Key;");
 			writer.append("Pressed Key;");
@@ -61,7 +65,7 @@ public class ExperimentController implements Initializable {
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
-			LOG.error("can't write file " + Constants.OUTPUT + " : " + e.getMessage());
+			LOG.error("can't write file " + filename + " : " + e.getMessage());
 			e.printStackTrace();
 		}
 		
@@ -80,7 +84,7 @@ public class ExperimentController implements Initializable {
 				if (pressed != null) {
 					LOG.info("hotkey " + pressed.getSimpleName() + " pressed");
 					try {
-						FileWriter writer = new FileWriter(Constants.OUTPUT, true);
+						FileWriter writer = new FileWriter(filename, true);
 						writer.append(hotKey.getSimpleName() + ";");
 						writer.append(pressed.getSimpleName() + ";");
 						writer.append(System.currentTimeMillis() - time + ";");
@@ -88,7 +92,7 @@ public class ExperimentController implements Initializable {
 						writer.flush();
 						writer.close();
 					} catch (IOException e) {
-						LOG.error("can't write file " + Constants.OUTPUT + " : " + e.getMessage());
+						LOG.error("can't write file " + filename + " : " + e.getMessage());
 						e.printStackTrace();
 					}
 
@@ -126,12 +130,20 @@ public class ExperimentController implements Initializable {
 	@SuppressWarnings("unchecked")
 	private void end() {
 		LOG.info("end of experiment");
+		MainWindow.getRoot().setCenter(null);
 		MainWindow.getStage().removeEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
 		SettingsController.getModel().setExperimentAborted(false);
 		LOG.info("showing end alert");
 		Optional<ButtonType> result = new EndAlert().showAndWait();
 		if (result.get() == ButtonType.OK) {
-			// TODO start new experiment
+			BorderPane settings = null;
+			try {
+				settings = FXMLLoader.load(getClass().getResource(Constants.SCREEN_SETTINGS));
+				MainWindow.getRoot().setCenter(settings);
+			} catch (IOException e) {
+				LOG.error("Cannot load settings screen " + e.getMessage());
+				e.printStackTrace();
+			}
 		} else if (result.get() == ButtonType.CANCEL) {
 			System.exit(0);
 		} else {

@@ -38,6 +38,11 @@ public class AboutAlert extends Alert {
 		sb.append(Constants.AUTHOR_ICONS);
 		sb.append('\n');
 		
+		sb.append(OBSERVABLE_RESOURCES.getStringBinding("supervisor").get());
+		sb.append(' ');
+		sb.append(Constants.SUPERVISOR);
+		sb.append('\n');
+		
 		setContentText(sb.toString());
 	}
 

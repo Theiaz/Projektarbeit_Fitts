@@ -64,12 +64,12 @@
 						</RadioButton>
 						<RadioButton fx:id="radioWritingHandR" mnemonicParsing="false" text="Right" toggleGroup="$toggleWritingHand" GridPane.columnIndex="1" GridPane.rowIndex="14" />
 						<Label fx:id="labelMouseHand" minWidth="-Infinity" text="Mouse hand:" GridPane.rowIndex="15" />
-						<RadioButton fx:id="radioMouseHandR" mnemonicParsing="false" text="Right" toggleGroup="$toggleMouseHand" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-						<RadioButton fx:id="radioMouseHandL" mnemonicParsing="false" text="Left " GridPane.columnIndex="1" GridPane.rowIndex="16">
+						<RadioButton fx:id="radioMouseHandL" mnemonicParsing="false" text="Left " GridPane.columnIndex="1" GridPane.rowIndex="15">
 							<toggleGroup>
 								<ToggleGroup fx:id="toggleMouseHand" />
 							</toggleGroup>
 						</RadioButton>
+						<RadioButton fx:id="radioMouseHandR" mnemonicParsing="false" text="Right" toggleGroup="$toggleMouseHand" GridPane.columnIndex="1" GridPane.rowIndex="16" />
 						<Label fx:id="labelWriting10Finger" minWidth="-Infinity" text="10 finger system:" GridPane.rowIndex="17">
 							<padding>
 								<Insets right="10.0" />

@@ -126,11 +126,12 @@ public class SettingsController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		bindI18NText();
+		
+		fillMockData();
 	}
 
 	@FXML
 	protected void saveButtonClicked(ActionEvent event) {
-		fillData();
 		if (isInputValid()) {
 			LOG.info("Input successfully validated!");
 			bindDataToModel();
@@ -190,15 +191,16 @@ public class SettingsController implements Initializable {
 		}
 	}
 
-	private void fillData() {
+	private void fillMockData() {
 		radioInputDeviceMouse.setSelected(true);
-		textfieldName.setText("abc");
-		textfieldAge.setText("12");
+		textfieldName.setText("Jon");
+		textfieldAge.setText("25");
 		textfieldRounds.setText("5");
-		radioSexFemale.setSelected(true);
+		radioSexMale.setSelected(true);
 		radioWritingDirectionLR.setSelected(true);
 		radioWritingHandL.setSelected(true);
 		radioMouseHandL.setSelected(true);
+		radioTypeFirst.setSelected(true);
 	}
 
 	private void bindI18NText() {

@@ -32,15 +32,18 @@ public class AboutAlert extends Alert {
 		sb.append(' ');
 		sb.append(Constants.AUTHOR_2);
 		sb.append('\n');
+		sb.append('\n');
 		
 		sb.append(OBSERVABLE_RESOURCES.getStringBinding("iconsby").get());
 		sb.append(' ');
 		sb.append(Constants.AUTHOR_ICONS);
 		sb.append('\n');
+		sb.append('\n');
 		
 		sb.append(OBSERVABLE_RESOURCES.getStringBinding("supervisor").get());
 		sb.append(' ');
 		sb.append(Constants.SUPERVISOR);
+		sb.append('\n');
 		sb.append('\n');
 		
 		setContentText(sb.toString());

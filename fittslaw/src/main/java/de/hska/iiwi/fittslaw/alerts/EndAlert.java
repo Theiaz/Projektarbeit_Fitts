@@ -14,8 +14,8 @@ public class EndAlert extends Alert {
 		super(AlertType.CONFIRMATION);
 		Stage stage = (Stage) getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(Constants.LOGO));
-		setHeaderText(OBSERVABLE_RESOURCES.getStringBinding("end").get());
-		setContentText(OBSERVABLE_RESOURCES.getStringBinding("restartquestion").get());
+		setHeaderText(OBSERVABLE_RESOURCES.getStringBinding("restartquestion").get());
+//		setContentText(OBSERVABLE_RESOURCES.getStringBinding("restartquestion").get());
 	}
 
 }

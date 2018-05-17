@@ -1,7 +1,9 @@
 package de.hska.iiwi.fittslaw.experiment;
 
+import java.io.BufferedInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -123,13 +125,18 @@ public class ExperimentController implements Initializable {
 					} else {
 						try {
 							Clip clip = AudioSystem.getClip();
-							AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-									ExperimentController.class.getResourceAsStream(Constants.SOUND_ERROR));
-							clip.open(inputStream);
+							
+							//read audio data from whatever source (file/classloader/etc.)
+							InputStream audioSrc = getClass().getResourceAsStream(Constants.SOUND_ERROR);
+							//add buffer for mark/reset support
+							InputStream bufferedIn = new BufferedInputStream(audioSrc);
+							AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
+							
+							clip.open(audioStream);
 							clip.start();
 						} catch (Exception e) {
 							LOG.error(e.getMessage());
-							System.err.println(e.getMessage());
+							e.printStackTrace();
 						}
 					}
 

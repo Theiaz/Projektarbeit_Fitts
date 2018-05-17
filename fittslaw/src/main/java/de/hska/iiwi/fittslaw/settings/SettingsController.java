@@ -168,7 +168,7 @@ public class SettingsController implements Initializable {
 				// Skip ExperimentAborted field (not necessary inside csv)
 				if (nameCapitalized.contains("ExperimentAborted"))
 				{
-					break;
+					continue;
 				}
 				content.add(new ValueHolder(nameCapitalized, String.valueOf(field.get(model))));
 			}

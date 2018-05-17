@@ -6,6 +6,10 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 import org.apache.log4j.Logger;
 
 import de.hska.iiwi.fittslaw.Constants;
@@ -116,6 +120,17 @@ public class ExperimentController implements Initializable {
 
 					if (pressed.equals(hotKey)) {
 						next();
+					} else {
+						try {
+							Clip clip = AudioSystem.getClip();
+							AudioInputStream inputStream = AudioSystem.getAudioInputStream(
+									ExperimentController.class.getResourceAsStream(Constants.SOUND_ERROR));
+							clip.open(inputStream);
+							clip.start();
+						} catch (Exception e) {
+							LOG.error(e.getMessage());
+							System.err.println(e.getMessage());
+						}
 					}
 
 				}

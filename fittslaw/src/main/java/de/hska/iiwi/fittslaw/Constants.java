@@ -33,5 +33,7 @@ public class Constants {
 	public static final String ICON_DE_DE = "/icons/i18n/de_DE.png";
 
 	public static final String LOGO = "/icons/logo.png";
+	
+	public static final String SOUND_ERROR = "/sound/error.aiff";
 
 }

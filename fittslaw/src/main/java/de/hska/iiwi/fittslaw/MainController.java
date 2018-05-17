@@ -81,8 +81,6 @@ public class MainController implements Initializable {
 		});
 		
 		ImageView ienus = new ImageView(new Image(Constants.ICON_EN_UK));
-		ienus.setFitWidth(16.0);
-		ienus.setFitHeight(16.0);
 		menuItemEnglish.setGraphic(ienus);
 		ImageView idede = new ImageView(new Image(Constants.ICON_DE_DE));
 		idede.setFitWidth(16.0);

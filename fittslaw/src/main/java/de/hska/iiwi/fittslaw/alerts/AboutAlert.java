@@ -40,6 +40,12 @@ public class AboutAlert extends Alert {
 		sb.append('\n');
 		sb.append('\n');
 		
+		sb.append(OBSERVABLE_RESOURCES.getStringBinding("errorsoundby").get());
+		sb.append(' ');
+		sb.append(Constants.AUTHOR_SOUND_ERROR);
+		sb.append('\n');
+		sb.append('\n');
+		
 		sb.append(OBSERVABLE_RESOURCES.getStringBinding("supervisor").get());
 		sb.append(' ');
 		sb.append(Constants.SUPERVISOR);

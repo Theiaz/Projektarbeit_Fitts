@@ -10,7 +10,7 @@ public class FileNameCreator {
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss");
 
 	public static String getFileName(Date date) {
-		return Constants.TITLE + DATE_FORMAT.format(date) + ".csv";
+		return Constants.TITLE_FILES + "-" + DATE_FORMAT.format(date) + ".csv";
 	}
 	
 }

@@ -9,7 +9,8 @@ public class Constants {
 	 */
 	public static final String VERSION = Constants.class.getPackage().getImplementationVersion();
 
-	public static final String TITLE = "SuperNiceProgram"; // TODO
+	public static final String TITLE = "Fitts O1";
+	public static final String TITLE_FILES = "Fitts_O1";
 	public static final String AUTHOR_1 = "Julian Schäfer";
 	public static final String AUTHOR_2 = "Torben Krüger";
 	public static final String AUTHOR_ICONS = "Freepik (www.freepik.com)";

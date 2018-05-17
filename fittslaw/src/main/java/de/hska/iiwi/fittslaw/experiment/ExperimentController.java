@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.sound.sampled.AudioInputStream;
@@ -26,7 +25,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -125,13 +123,14 @@ public class ExperimentController implements Initializable {
 					} else {
 						try {
 							Clip clip = AudioSystem.getClip();
-							
-							//read audio data from whatever source (file/classloader/etc.)
+
+							// read audio data from whatever source
+							// (file/classloader/etc.)
 							InputStream audioSrc = getClass().getResourceAsStream(Constants.SOUND_ERROR);
-							//add buffer for mark/reset support
+							// add buffer for mark/reset support
 							InputStream bufferedIn = new BufferedInputStream(audioSrc);
 							AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
-							
+
 							clip.open(audioStream);
 							clip.start();
 						} catch (Exception e) {
@@ -172,23 +171,14 @@ public class ExperimentController implements Initializable {
 		MainWindow.getStage().removeEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
 		SettingsController.getModel().setExperimentAborted(false);
 		LOG.info("showing end alert");
-		Optional<ButtonType> result = new EndAlert().showAndWait();
-		if (result.get() == ButtonType.OK) {
-			BorderPane settings = null;
-			try {
-				settings = FXMLLoader.load(getClass().getResource(Constants.SCREEN_SETTINGS));
-				MainWindow.getRoot().setCenter(settings);
-			} catch (IOException e) {
-				LOG.error("Cannot load settings screen " + e.getMessage());
-				e.printStackTrace();
-			}
-		} else if (result.get() == ButtonType.CANCEL) {
-			LOG.info("closing apllication");
-			System.exit(0);
-		} else {
-			String message = "unkown ButtonType " + result.get().toString();
-			LOG.error("message");
-			throw new InternalError(message);
+		new EndAlert().showAndWait();
+		BorderPane settings = null;
+		try {
+			settings = FXMLLoader.load(getClass().getResource(Constants.SCREEN_SETTINGS));
+			MainWindow.getRoot().setCenter(settings);
+		} catch (IOException e) {
+			LOG.error("Cannot load settings screen " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 

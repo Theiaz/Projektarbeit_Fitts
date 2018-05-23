@@ -15,6 +15,16 @@
                   <Font size="64.0" />
                </font></Label>
             <ImageView fx:id="icon" fitHeight="150.0" fitWidth="200.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
+            <VBox fx:id="textInput" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="textInputWord" text="text input label">
+                     <font>
+                        <Font size="64.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="textInputField" />
+               </children>
+            </VBox>
          </children>
       </VBox>
    </center>

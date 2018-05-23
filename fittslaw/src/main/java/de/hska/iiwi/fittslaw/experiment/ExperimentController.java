@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import javax.sound.sampled.AudioInputStream;
@@ -26,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -46,11 +48,24 @@ public class ExperimentController implements Initializable {
 	@FXML
 	private VBox container;
 
+	@FXML
+	private VBox textInput;
+
+	@FXML
+	private Label textInputWord;
+
+	@FXML
+	private TextField textInputField;
+
 	private HotKey hotKey;
 
 	private long time = System.currentTimeMillis();
 
-	private int counter = 1;
+	private int round = 1;
+
+	private boolean hotKeyInput = false;
+
+	private String word = "Hallo";
 
 	@SuppressWarnings("rawtypes")
 	private EventHandler eventHandler;
@@ -59,20 +74,7 @@ public class ExperimentController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		bindI18NText();
-		switch (SettingsController.getModel().getExperimentType()) {
-			case TEXT :
-				container.getChildren().remove(icon);
-				break;
-			case ICON :
-				container.getChildren().remove(command);
-				break;
-			default :
-				String message = "unknown enum " + SettingsController.getModel().getExperimentType().toString();
-				LOG.error(message);
-				throw new InternalError(message);
-		}
-		command.setVisible(SettingsController.getModel().getExperimentType().equals(ExperimentType.TEXT));
-		icon.setVisible(SettingsController.getModel().getExperimentType().equals(ExperimentType.ICON));
+		setContent();
 		String filename = FileNameCreator.getFileName(SettingsController.getModel().getTimestamp());
 
 		try {
@@ -143,6 +145,13 @@ public class ExperimentController implements Initializable {
 			}
 		};
 
+		textInputField.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue.equals(word)) {
+				next();
+			}
+			System.out.println("textfield changed from " + oldValue + " to " + newValue);
+		});
+
 		MainWindow.getStage().addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
 		next();
 	}
@@ -152,15 +161,23 @@ public class ExperimentController implements Initializable {
 	}
 
 	private void next() {
-		if (counter > SettingsController.getModel().getExperimentRounds()) {
+		if (round > SettingsController.getModel().getExperimentRounds()) {
 			end();
 		} else {
-			hotKey = HotKey.getRandom();
-			command.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding(hotKey.getSimpleName()));
-			icon.setImage(hotKey.getIcon());
-			LOG.info("round " + counter + " of " + SettingsController.getModel().getExperimentRounds() + " : "
-					+ hotKey.getSimpleName());
-			counter++;
+			hotKeyInput = !hotKeyInput;
+			setContent();
+			if (hotKeyInput) {
+				hotKey = HotKey.getRandom();
+				command.textProperty().bind(OBSERVABLE_RESOURCES.getStringBinding(hotKey.getSimpleName()));
+				icon.setImage(hotKey.getIcon());
+				LOG.info("round " + round + " of " + SettingsController.getModel().getExperimentRounds() + ": "
+						+ hotKey.getSimpleName());
+				round++;
+			} else {
+				word = generateString("abcdefghijklmnopqrstuvwxyz", 4);
+				textInputWord.setText(word);
+				textInputField.clear();
+			}
 		}
 	}
 
@@ -180,6 +197,36 @@ public class ExperimentController implements Initializable {
 			LOG.error("Cannot load settings screen " + e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	private void setContent() {
+		container.getChildren().clear();
+		if (hotKeyInput) {
+			switch (SettingsController.getModel().getExperimentType()) {
+				case TEXT :
+					container.getChildren().add(command);
+					break;
+				case ICON :
+					container.getChildren().add(icon);
+					break;
+				default :
+					String message = "unknown enum " + SettingsController.getModel().getExperimentType().toString();
+					LOG.error(message);
+					throw new InternalError(message);
+			}
+		} else {
+			container.getChildren().add(textInput);
+		}
+	}
+	
+	private String generateString(String characters, int length)
+	{
+	    char[] text = new char[length];
+	    for (int i = 0; i < length; i++)
+	    {
+	        text[i] = characters.charAt(new Random().nextInt(characters.length()));
+	    }
+	    return new String(text);
 	}
 
 }

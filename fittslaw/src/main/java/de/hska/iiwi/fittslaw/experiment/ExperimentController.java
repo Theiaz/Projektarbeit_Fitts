@@ -5,8 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -18,7 +18,6 @@ import de.hska.iiwi.fittslaw.Constants;
 import de.hska.iiwi.fittslaw.MainWindow;
 import de.hska.iiwi.fittslaw.alerts.EndAlert;
 import de.hska.iiwi.fittslaw.settings.SettingsController;
-import de.hska.iiwi.fittslaw.settings.SettingsModel.ExperimentType;
 import de.hska.iiwi.fittslaw.util.FileNameCreator;
 import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
 import javafx.event.Event;
@@ -65,7 +64,7 @@ public class ExperimentController implements Initializable {
 
 	private boolean hotKeyInput = false;
 
-	private String word = "Hallo";
+	private String word;
 
 	@SuppressWarnings("rawtypes")
 	private EventHandler eventHandler;
@@ -87,7 +86,7 @@ public class ExperimentController implements Initializable {
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
-			LOG.error("can't write file " + filename + " : " + e.getMessage());
+			LOG.error("can't write file " + filename + ": " + e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -123,22 +122,7 @@ public class ExperimentController implements Initializable {
 					if (pressed.equals(hotKey)) {
 						next();
 					} else {
-						try {
-							Clip clip = AudioSystem.getClip();
-
-							// read audio data from whatever source
-							// (file/classloader/etc.)
-							InputStream audioSrc = getClass().getResourceAsStream(Constants.SOUND_ERROR);
-							// add buffer for mark/reset support
-							InputStream bufferedIn = new BufferedInputStream(audioSrc);
-							AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
-
-							clip.open(audioStream);
-							clip.start();
-						} catch (Exception e) {
-							LOG.error(e.getMessage());
-							e.printStackTrace();
-						}
+						playErrorSound();
 					}
 
 				}
@@ -148,8 +132,10 @@ public class ExperimentController implements Initializable {
 		textInputField.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue.equals(word)) {
 				next();
+			} else if (!word.substring(0, newValue.length()).equals(newValue)) {
+				playErrorSound();
+				textInputField.setText(oldValue);
 			}
-			System.out.println("textfield changed from " + oldValue + " to " + newValue);
 		});
 
 		MainWindow.getStage().addEventHandler(KeyEvent.KEY_PRESSED, eventHandler);
@@ -172,9 +158,11 @@ public class ExperimentController implements Initializable {
 				icon.setImage(hotKey.getIcon());
 				LOG.info("round " + round + " of " + SettingsController.getModel().getExperimentRounds() + ": "
 						+ hotKey.getSimpleName());
+				time = System.currentTimeMillis();
 				round++;
 			} else {
-				word = generateString("abcdefghijklmnopqrstuvwxyz", 4);
+				int randomNum = ThreadLocalRandom.current().nextInt(0, Constants.DICT_LNGTH);
+				word = OBSERVABLE_RESOURCES.getStringBinding("word" + randomNum).get();
 				textInputWord.setText(word);
 				textInputField.clear();
 			}
@@ -219,14 +207,23 @@ public class ExperimentController implements Initializable {
 		}
 	}
 	
-	private String generateString(String characters, int length)
-	{
-	    char[] text = new char[length];
-	    for (int i = 0; i < length; i++)
-	    {
-	        text[i] = characters.charAt(new Random().nextInt(characters.length()));
-	    }
-	    return new String(text);
+	private void playErrorSound() {
+		try {
+			Clip clip = AudioSystem.getClip();
+
+			// read audio data from whatever source
+			// (file/classloader/etc.)
+			InputStream audioSrc = getClass().getResourceAsStream(Constants.SOUND_ERROR);
+			// add buffer for mark/reset support
+			InputStream bufferedIn = new BufferedInputStream(audioSrc);
+			AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
+
+			clip.open(audioStream);
+			clip.start();
+		} catch (Exception e) {
+			LOG.error(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 }

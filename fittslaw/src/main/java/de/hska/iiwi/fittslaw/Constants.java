@@ -10,7 +10,7 @@ public class Constants {
 	public static final String VERSION = Constants.class.getPackage().getImplementationVersion();
 
 	public static final String TITLE = "Fitts O1";
-	public static final String TITLE_FILES = "Fitts_O1";
+	public static final String TITLE_FILES = "FittsO1";
 	public static final String AUTHOR_1 = "Julian Schäfer";
 	public static final String AUTHOR_2 = "Torben Krüger";
 	public static final String AUTHOR_ICONS = "Freepik (www.freepik.com)";
@@ -37,5 +37,7 @@ public class Constants {
 	public static final String LOGO = "/icons/logo.png";
 	
 	public static final String SOUND_ERROR = "/sound/error.aiff";
+	
+	public static final int DICT_LNGTH = 30;
 
 }

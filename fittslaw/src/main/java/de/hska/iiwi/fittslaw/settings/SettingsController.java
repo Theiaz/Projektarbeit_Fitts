@@ -364,14 +364,22 @@ public class SettingsController implements Initializable {
 			radioInputDevicePen.getStyleClass().add("error");
 			b = false;
 		}
+		
+		if (textfieldDeviceType.getText().length() < Constants.DEVICETYPE_LENGTH_MIN
+				|| textfieldDeviceType.getText().length() > Constants.DEVICETYPE_LENGTH_MAX) {
+			textfieldDeviceType.getStyleClass().add("error");
+			b = false;
+		}
 
-		if (textfieldName.getText().length() <= 0) {
+		if (textfieldName.getText().length() < Constants.NAME_LENGTH_MIN
+				|| textfieldName.getText().length() > Constants.NAME_LENGTH_MAX) {
 			textfieldName.getStyleClass().add("error");
 			b = false;
 		}
 
-		if (textfieldAge.getText().length() <= 0 || textfieldAge.getText().length() > 2
-				|| !textfieldAge.getText().matches("[0-9]+")) {
+		if (!textfieldAge.getText().matches("[0-9]+")
+				|| Integer.parseInt(textfieldAge.getText()) < Constants.AGE_MIN
+				|| Integer.parseInt(textfieldAge.getText()) > Constants.AGE_MAX) {
 			textfieldAge.getStyleClass().add("error");
 			b = false;
 		}
@@ -397,6 +405,12 @@ public class SettingsController implements Initializable {
 		if (!radioMouseHandL.isSelected() && !radioMouseHandR.isSelected()) {
 			radioMouseHandL.getStyleClass().add("error");
 			radioMouseHandR.getStyleClass().add("error");
+			b = false;
+		}
+		
+		if (textfieldComment.getText().length() < Constants.COMMENT_LENGTH_MIN
+				|| textfieldComment.getText().length() > Constants.COMMENT_LENGTH_MAX) {
+			textfieldComment.getStyleClass().add("error");
 			b = false;
 		}
 

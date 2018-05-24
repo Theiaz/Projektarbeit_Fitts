@@ -406,7 +406,9 @@ public class SettingsController implements Initializable {
 			b = false;
 		}
 
-		if (textfieldRounds.getText().length() <= 0 || !textfieldRounds.getText().matches("[0-9]+")) {
+		if (textfieldRounds.getText().length() <= 0 || !textfieldRounds.getText().matches("[0-9]+")
+				|| Integer.parseInt(textfieldRounds.getText()) < Constants.ROUNDS_MIN
+				|| Integer.parseInt(textfieldRounds.getText()) > Constants.ROUNDS_MAX) {
 			textfieldRounds.getStyleClass().add("error");
 			b = false;
 		}

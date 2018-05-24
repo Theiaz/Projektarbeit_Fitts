@@ -39,5 +39,8 @@ public class Constants {
 	public static final String SOUND_ERROR = "/sound/error.aiff";
 	
 	public static final int DICT_LNGTH = 30;
+	
+	public static final int ROUNDS_MIN = 5; // TODO find good value
+	public static final int ROUNDS_MAX = 100; // TODO find good value
 
 }

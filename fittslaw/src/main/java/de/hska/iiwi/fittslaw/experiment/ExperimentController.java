@@ -94,37 +94,40 @@ public class ExperimentController implements Initializable {
 			@Override
 			public void handle(Event event) {
 
-				// find out which hotkey has been pressed
-				HotKey pressed = null;
-				for (HotKey hotKey : HotKey.VALUES) {
-					if (hotKey.getKeyCombination().match((KeyEvent) event)) {
-						pressed = hotKey;
-					}
-				}
+				if (hotKeyInput) {
 
-				if (pressed != null) {
-					LOG.info("hotkey " + pressed.getSimpleName() + " pressed");
-					try {
-						FileWriter writer = new FileWriter(filename, true);
-						writer.append(hotKey.getSimpleName() + ";");
-						writer.append(pressed.getSimpleName() + ";");
-						writer.append(System.currentTimeMillis() - time + ";");
-						writer.append('\n');
-						writer.flush();
-						writer.close();
-					} catch (IOException e) {
-						LOG.error("can't write file " + filename + " : " + e.getMessage());
-						e.printStackTrace();
+					// find out which hotkey has been pressed
+					HotKey pressed = null;
+					for (HotKey hotKey : HotKey.VALUES) {
+						if (hotKey.getKeyCombination().match((KeyEvent) event)) {
+							pressed = hotKey;
+						}
 					}
 
-					time = System.currentTimeMillis();
+					if (pressed != null) {
+						LOG.info("hotkey " + pressed.getSimpleName() + " pressed");
+						try {
+							FileWriter writer = new FileWriter(filename, true);
+							writer.append(hotKey.getSimpleName() + ";");
+							writer.append(pressed.getSimpleName() + ";");
+							writer.append(System.currentTimeMillis() - time + ";");
+							writer.append('\n');
+							writer.flush();
+							writer.close();
+						} catch (IOException e) {
+							LOG.error("can't write file " + filename + " : " + e.getMessage());
+							e.printStackTrace();
+						}
 
-					if (pressed.equals(hotKey)) {
-						next();
-					} else {
-						playErrorSound();
+						time = System.currentTimeMillis();
+
+						if (pressed.equals(hotKey)) {
+							next();
+						} else {
+							playErrorSound();
+						}
+
 					}
-
 				}
 			}
 		};
@@ -132,7 +135,7 @@ public class ExperimentController implements Initializable {
 		textInputField.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue.equals(word)) {
 				next();
-			} else if (!word.substring(0, newValue.length()).equals(newValue)) {
+			} else if (newValue.length() > word.length() || !word.substring(0, newValue.length()).equals(newValue)) {
 				playErrorSound();
 				textInputField.setText(oldValue);
 			}
@@ -206,7 +209,7 @@ public class ExperimentController implements Initializable {
 			container.getChildren().add(textInput);
 		}
 	}
-	
+
 	private void playErrorSound() {
 		try {
 			Clip clip = AudioSystem.getClip();

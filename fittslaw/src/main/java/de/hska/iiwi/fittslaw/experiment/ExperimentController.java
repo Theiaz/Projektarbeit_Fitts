@@ -20,7 +20,6 @@ import de.hska.iiwi.fittslaw.alerts.EndAlert;
 import de.hska.iiwi.fittslaw.settings.SettingsController;
 import de.hska.iiwi.fittslaw.util.FileNameCreator;
 import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,26 +89,19 @@ public class ExperimentController implements Initializable {
 			e.printStackTrace();
 		}
 
-		eventHandler = new EventHandler<Event>() {
+		eventHandler = new EventHandler<KeyEvent>() {
 			@Override
-			public void handle(Event event) {
+			public void handle(KeyEvent event) {
 
 				if (hotKeyInput) {
 
-					// find out which hotkey has been pressed
-					HotKey pressed = null;
-					for (HotKey hotKey : HotKey.VALUES) {
-						if (hotKey.getKeyCombination().match((KeyEvent) event)) {
-							pressed = hotKey;
-						}
-					}
+					if (event.isControlDown() && event.getCode().isLetterKey()) {
 
-					if (pressed != null) {
-						LOG.info("hotkey " + pressed.getSimpleName() + " pressed");
+						LOG.info("CTRL + " + event.getCode().toString() + " pressed");
 						try {
 							FileWriter writer = new FileWriter(filename, true);
-							writer.append(hotKey.getSimpleName() + ";");
-							writer.append(pressed.getSimpleName() + ";");
+							writer.append("CTRL + " + hotKey.getKeyCode().toString() + ";");
+							writer.append("CTRL + " + event.getCode().toString() + ";");
 							writer.append(System.currentTimeMillis() - time + ";");
 							writer.append('\n');
 							writer.flush();
@@ -121,13 +113,14 @@ public class ExperimentController implements Initializable {
 
 						time = System.currentTimeMillis();
 
-						if (pressed.equals(hotKey)) {
+						if (event.getCode().equals(hotKey.getKeyCode())) {
 							next();
 						} else {
 							playErrorSound();
 						}
 
 					}
+
 				}
 			}
 		};

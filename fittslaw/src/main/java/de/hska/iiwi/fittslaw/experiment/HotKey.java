@@ -8,31 +8,29 @@ import java.util.Random;
 import de.hska.iiwi.fittslaw.Constants;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 
 public enum HotKey {
 
-	COPY("copy", Constants.ICON_COPY, new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN)),
+	COPY("copy", Constants.ICON_COPY, KeyCode.C),
 
-	CUT("cut", Constants.ICON_CUT, new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN)),
+	CUT("cut", Constants.ICON_CUT, KeyCode.X),
 
-	PASTE("paste", Constants.ICON_PASTE, new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN)),
+	PASTE("paste", Constants.ICON_PASTE, KeyCode.V),
 
-	PRINT("print", Constants.ICON_PRINT, new KeyCodeCombination(KeyCode.P, KeyCombination.CONTROL_DOWN)),
+	PRINT("print", Constants.ICON_PRINT,KeyCode.P),
 
-	SAVE("save", Constants.ICON_SAVE, new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
+	SAVE("save", Constants.ICON_SAVE, KeyCode.S);
 
 	private final Image icon;
 
 	private final String simpleName;
 
-	private final KeyCombination keyCombination;
+	private final KeyCode keyCode;
 
-	private HotKey(String simpleName, String iconURL, KeyCombination keyCombination) {
+	private HotKey(String simpleName, String iconURL, KeyCode keyCode) {
 		this.simpleName = simpleName;
 		this.icon = new Image(iconURL);
-		this.keyCombination = keyCombination;
+		this.keyCode = keyCode;
 	}
 
 	public String getSimpleName() {
@@ -43,8 +41,8 @@ public enum HotKey {
 		return icon;
 	}
 
-	public KeyCombination getKeyCombination() {
-		return keyCombination;
+	public KeyCode getKeyCode() {
+		return keyCode;
 	}
 
 	public static final List<HotKey> VALUES = Collections.unmodifiableList(Arrays.asList(values()));

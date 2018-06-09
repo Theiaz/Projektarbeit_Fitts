@@ -1,0 +1,26 @@
+"DeviceMouse";"true";
+"DeviceTouch";"false";
+"DevicePen";"false";
+"DeviceType";"";
+"UserName";"Jules";
+"UserAge";"20";
+"UserGender";"FEMALE";
+"UserWritingHand";"RIGHT";
+"UserMouseHand";"RIGHT";
+"UserWritingDirection";"LEFTTORIGHT";
+"UserTenFingerSystem";"false";
+"UserComment";"";
+"ExperimentType";"TEXT";
+"ExperimentRounds";"5";
+"Version";"1.0.0";
+"ComputerName";"Torben";
+"OperatingSystem";"Windows 7";
+"Timestamp";"Sat Jun 09 11:41:11 CEST 2018";
+
+Expected Key;Pressed Key;Time in ms;
+CTRL + C;CTRL + C;10691;
+CTRL + S;CTRL + S;7143;
+CTRL + C;CTRL + C;1841;
+CTRL + X;CTRL + X;5312;
+CTRL + C;CTRL + V;1952;
+CTRL + C;CTRL + C;1415;

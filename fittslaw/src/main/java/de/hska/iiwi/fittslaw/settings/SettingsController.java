@@ -30,6 +30,8 @@ import de.hska.iiwi.fittslaw.settings.SettingsModel.WritingHand;
 import de.hska.iiwi.fittslaw.util.FileNameCreator;
 import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
 import de.hska.iiwi.fittslaw.util.ValueHolder;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -129,6 +131,24 @@ public class SettingsController implements Initializable {
 		bindI18NText();
 		
 		fillMockData();
+		
+		// force the textfieldAge to be numeric only
+		textfieldAge.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        textfieldAge.setText(newValue.replaceAll("[^\\d]", ""));
+		    }
+		});
+		
+		// force the textfieldRounds to be numeric only
+		textfieldRounds.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		    	textfieldRounds.setText(newValue.replaceAll("[^\\d]", ""));
+		    }
+		});
 	}
 
 	@FXML

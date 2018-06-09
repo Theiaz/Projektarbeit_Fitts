@@ -377,7 +377,7 @@ public class SettingsController implements Initializable {
 		textfieldRounds.getStyleClass().remove("error");
 
 		if (!radioInputDeviceMouse.isSelected() && !radioInputDeviceTouch.isSelected()
-				&& !radioInputDeviceTouch.isSelected()) {
+				&& !radioInputDevicePen.isSelected()) {
 			radioInputDeviceMouse.getStyleClass().add("error");
 			radioInputDeviceTouch.getStyleClass().add("error");
 			radioInputDevicePen.getStyleClass().add("error");

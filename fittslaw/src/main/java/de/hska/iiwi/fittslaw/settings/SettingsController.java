@@ -298,6 +298,7 @@ public class SettingsController implements Initializable {
 		model.setTimestamp(new Date());
 	}
 
+	@SuppressWarnings("unused")
 	private void bindMockupData() {
 		// input device
 		model.setDeviceMouse(true);

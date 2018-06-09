@@ -194,9 +194,7 @@ public class SettingsController implements Initializable {
 
 	private void fillMockData() {
 		radioInputDeviceMouse.setSelected(true);
-		textfieldName.setText("Jon");
-		textfieldAge.setText("25");
-		textfieldRounds.setText("5");
+		textfieldRounds.setText(Integer.toString(Constants.ROUNDS_DEFAULT));
 		radioSexMale.setSelected(true);
 		radioWritingDirectionLR.setSelected(true);
 		radioWritingHandL.setSelected(true);

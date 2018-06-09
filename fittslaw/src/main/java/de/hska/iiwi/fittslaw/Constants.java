@@ -40,6 +40,8 @@ public class Constants {
 	
 	public static final int DICT_LNGTH = 40;
 	
+	public static final int ROUNDS_DEFAULT = 30;
+	
 	public static final int DEVICETYPE_LENGTH_MIN = 0;
 	public static final int DEVICETYPE_LENGTH_MAX = 100; // TODO find good value
 	public static final int NAME_LENGTH_MIN = 1;

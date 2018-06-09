@@ -20,6 +20,7 @@ import de.hska.iiwi.fittslaw.alerts.EndAlert;
 import de.hska.iiwi.fittslaw.settings.SettingsController;
 import de.hska.iiwi.fittslaw.util.FileNameCreator;
 import de.hska.iiwi.fittslaw.util.ObservableResourcesSingleton;
+import de.hska.iiwi.fittslaw.util.WordGenerator;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -157,8 +158,7 @@ public class ExperimentController implements Initializable {
 				time = System.currentTimeMillis();
 				round++;
 			} else {
-				int randomNum = ThreadLocalRandom.current().nextInt(0, Constants.DICT_LNGTH);
-				word = OBSERVABLE_RESOURCES.getStringBinding("word" + randomNum).get();
+				word = WordGenerator.getWord();
 				textInputWord.setText(word);
 				textInputField.clear();
 			}
